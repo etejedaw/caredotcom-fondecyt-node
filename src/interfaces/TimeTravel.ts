@@ -9,7 +9,7 @@ interface Mementos {
     list: List[];
 }
 
- interface List {
+export interface List {
     datetime: Date;
     uri:      string;
 }
