@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import TimeTravel from "../interfaces/TimeTravel";
+import TimeTravel, {List} from "../interfaces/TimeTravel";
 
 class Wayback{
 	readonly #uri: string;
@@ -16,6 +16,11 @@ class Wayback{
 		const link = `http://timetravel.mementoweb.org/timemap/json/${this.#uri}`;
 		const response = await fetch(link);
 		return await response.json();
+	}
+
+	async getList(): Promise<List[]>{
+		const timeTravel = await this.getUrls();
+		return timeTravel.mementos.list;
 	}
 
 }
