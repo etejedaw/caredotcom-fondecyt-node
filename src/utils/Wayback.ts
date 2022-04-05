@@ -8,18 +8,14 @@ class Wayback{
 		this.#uri = url;
 	}
 
-	get url(){
-		return this.#uri;
-	}
-
-	async getUrls(): Promise<TimeTravel>{
+	async #getUrls(): Promise<TimeTravel>{
 		const link = `http://timetravel.mementoweb.org/timemap/json/${this.#uri}`;
 		const response = await fetch(link);
 		return await response.json();
 	}
 
 	async getList(): Promise<List[]>{
-		const timeTravel = await this.getUrls();
+		const timeTravel = await this.#getUrls();
 		return timeTravel.mementos.list;
 	}
 
