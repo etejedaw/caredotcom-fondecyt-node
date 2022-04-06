@@ -6,7 +6,7 @@ class Environment {
 
 	constructor() {
 		this.#STATES = ["al", "ak"];
-		this.#LOCAL_AREAS = ["alabaster-al", "atmore-al"];
+		this.#LOCAL_AREAS = ["chicago-il", "new-work-ny"];
 		this.#OFFERS = ["child-care", "babysitters"];
 		this.#JOBS = ["nanny-jobs", "senior-care-jobs"];
 	}
