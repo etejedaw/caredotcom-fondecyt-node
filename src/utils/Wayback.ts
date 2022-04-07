@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import fetch, {RequestInit} from "node-fetch";
 import TimeTravel, {List} from "../interfaces/TimeTravel";
 
 class Wayback{
@@ -8,19 +8,25 @@ class Wayback{
 		this.#uri = url;
 	}
 
-	get url(){
-		return this.#uri;
-	}
-
-	async getUrls(): Promise<TimeTravel>{
+	async #getUrls(): Promise<TimeTravel>{
 		const link = `http://timetravel.mementoweb.org/timemap/json/${this.#uri}`;
-		const response = await fetch(link);
+		const initOpt: RequestInit = {
+			method: "GET",
+			headers: {"Content-Type": "application/json"}
+		};
+		const response = await fetch(link, initOpt);
 		return await response.json();
 	}
 
 	async getList(): Promise<List[]>{
-		const timeTravel = await this.getUrls();
-		return timeTravel.mementos.list;
+		try{
+			const timeTravel = await this.#getUrls();
+			return timeTravel.mementos.list;
+		}
+		catch (error){
+			console.log(`Not found links in ${this.#uri}`);
+			return [] as List[];
+		}
 	}
 
 }
