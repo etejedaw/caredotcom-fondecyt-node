@@ -1,5 +1,5 @@
-import Wayback from "./utils/Wayback";
-import GenerateUri from "./utils/GenerateUri";
+import Wayback from "./helpers/Wayback";
+import GenerateUri from "./helpers/GenerateUri";
 
 const URL = "https://www.care.com";
 
