@@ -1,6 +1,4 @@
 import request from "request-promise";
-import fs from "fs";
-import path from "path";
 
 class Getter {
 	readonly #url: string;
