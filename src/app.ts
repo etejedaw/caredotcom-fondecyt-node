@@ -1,5 +1,6 @@
 import Wayback from "./helpers/Wayback";
 import GenerateUri from "./helpers/GenerateUri";
+import Sleep from "./utils/Sleep";
 
 const URL = "https://www.care.com";
 
@@ -11,13 +12,9 @@ const main = async () => {
 		const wayback = new Wayback(link); //Solicita las URI en Wayback Machine
 		const list = await wayback.getList();
 		if(list.length !== 0)  console.log(list[0]);
-		await sleep(4000);
+		await Sleep.sleep(4000);
 	}
 
-};
-
-const sleep = async (milliseconds: number) => {
-	return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
 
 main();
