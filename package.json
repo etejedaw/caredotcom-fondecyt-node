@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/etejedaw/FONDECYT#readme",
   "devDependencies": {
+    "@types/cheerio": "^0.22.31",
     "@types/jest": "^27.4.1",
     "@types/node-fetch": "^2.6.1",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
@@ -35,6 +36,7 @@
   "dependencies": {
     "@types/request": "^2.48.8",
     "@types/request-promise": "^4.1.48",
+    "cheerio": "^1.0.0-rc.10",
     "node-fetch": "^2.6.7",
     "request": "^2.88.2",
     "request-promise": "^4.2.6"
