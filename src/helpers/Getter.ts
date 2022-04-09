@@ -9,12 +9,12 @@ class Getter {
 		this.#html = html;
 	}
 
-	static async build(url: string): Promise<Getter>{
+	static async build(url: string): Promise<Getter> {
 		const html = await request.get(url);
 		return new Getter(url, html);
 	}
 
-	get html(){
+	get html() {
 		return this.#html;
 	}
 

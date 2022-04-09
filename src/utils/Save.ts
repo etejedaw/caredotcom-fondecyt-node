@@ -2,7 +2,7 @@ import path from "path";
 import fs from "fs";
 
 class Save {
-	static saveHtml(data: string, name?: string){
+	static saveHtml(data: string, name?: string) {
 		name = name || "page";
 		const dir = path.resolve(__dirname, "../public");
 		const file = `${dir}/${name}.html`;
@@ -11,7 +11,7 @@ class Save {
 		console.log("HTML saved");
 	}
 
-	static loadHTML(name: string): string{
+	static loadHTML(name: string): string {
 		const dir = path.resolve(__dirname, "../public");
 		const file = `${dir}/${name}.html`;
 		if(!fs.existsSync(file)) throw new Error("File not found");

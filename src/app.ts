@@ -15,8 +15,8 @@ const main = async () => {
 	for (const link of generateUri.getLinks()) {
 		const wayback = new Wayback(link); //Solicita las URI en Wayback Machine
 		const list = await wayback.getList();
-		if(list.length !== 0){
-			for (const url of list){ //Recorre cada url de la lista obtenida por Wayback Machine
+		if(list.length !== 0) {
+			for (const url of list) { //Recorre cada url de la lista obtenida por Wayback Machine
 				const pageUrl = url.uri;
 				const page = await Getter.build(pageUrl);
 				Save.saveHtml(page.html, `page-${count}`);

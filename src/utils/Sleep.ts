@@ -1,5 +1,5 @@
 class Sleep {
-	static async sleep(milliseconds: number){
+	static async sleep(milliseconds: number) {
 		return new Promise(resolve => setTimeout(resolve, milliseconds));
 	}
 

@@ -7,7 +7,7 @@ class Scrape {
 		this.#html = html;
 	}
 
-	extractData(){
+	extractData() {
 		const $ = cheerio.load(this.#html);
 		const data = $(".group .search-result").map((idx, elem) => {
 			const name = $(elem).find(".profile-link").text().trim();

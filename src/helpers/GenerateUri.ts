@@ -9,7 +9,7 @@ class GenerateUri {
 		this.#environment = new Environment();
 	}
 
-	getLinks(): Array<string>{
+	getLinks(): Array<string> {
 		const links = [] as Array<string>;
 		this.#environment.OFFERS.forEach(offer => {
 			this.#environment.LOCAL_AREAS.forEach(localArea => {
