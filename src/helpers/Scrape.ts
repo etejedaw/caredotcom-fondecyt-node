@@ -54,11 +54,6 @@ class Scrape {
 		return data;
 	}
 
-	checkItems(name: string, priceRank: string, experience: string, age: string) {
-		if(name && priceRank && experience && age) return true;
-		return false;
-	}
-
 }
 
 export default Scrape;
