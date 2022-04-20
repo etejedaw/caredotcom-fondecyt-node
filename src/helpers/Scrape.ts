@@ -45,13 +45,17 @@ class Scrape {
 			const name = tempName.split("|")[0];
 			const tempBody = $(elem).find("div.result-heading").text();
 			const body = tempBody.split("•");
-			console.log(body);
+			if(!this.hasAllValues(body)) return;
 			const priceRank = body[0].trim();
 			const experience = body[1].trim();
 			const age = body[2].trim();
 			return {name, priceRank, experience, age};
 		}).get();
 		return data;
+	}
+
+	hasAllValues(body: Array<string>) {
+		return body.length === 3;
 	}
 
 }
