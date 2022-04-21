@@ -8,7 +8,7 @@ class Scrape {
 	}
 
 	extractData(): any {
-		return this.extractData5();
+		return this.extractData4();
 	}
 
 	extractData1() {
@@ -57,8 +57,8 @@ class Scrape {
 
 	extractData4() {
 		const $ = cheerio.load(this.#html);
-		const data = $(".MuiGrid-root.MuiGrid-item .MuiGrid-root.MuiGrid-container .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiBox-root .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiBox-root").map((idx, elem) => {
-			const tempName = $(elem).find(".MuiTypography-root.MuiTypography-h3").text().trim();
+		const data = $(".MuiGrid-root.MuiGrid-item .MuiGrid-root.MuiGrid-container .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiBox-root").map((idx, elem) => {
+			const tempName = $(elem).find("h3.MuiTypography-root.MuiTypography-h3").text().trim();
 			const name = tempName.split("|")[0];
 			const tempBody = $(elem).find("h5:nth-child(2)").text();
 			const body = tempBody.split("•");
@@ -66,23 +66,6 @@ class Scrape {
 			const priceRank = body[0].trim();
 			const experience = body[1].trim();
 			const age = body[2].trim();
-			return {name, priceRank, experience, age};
-		}).get();
-		return data;
-	}
-
-	extractData5() {
-		const $ = cheerio.load(this.#html);
-		const data = $(".MuiGrid-root.MuiGrid-item .MuiGrid-root.MuiGrid-container .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiGrid-root.MuiGrid-item .MuiGrid-root.MuiGrid-container .jss112 .jss107 .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiBox-root").map((idx, elem) => {
-			const tempName = $(elem).find(".MuiTypography-root.MuiTypography-h3").text().trim();
-			const name = tempName.split("|")[0];
-			const tempBody = $(elem).find("h5:nth-child(2)").text();
-			const body = tempBody.split("•");
-			if(!this.hasAllValues(body)) return;
-			const priceRank = body[0].trim();
-			const experience = body[1].trim();
-			const age = body[2].trim();
-			console.log({name, priceRank, experience, age});
 			return {name, priceRank, experience, age};
 		}).get();
 		return data;
