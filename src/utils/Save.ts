@@ -18,6 +18,15 @@ class Save {
 		return fs.readFileSync(file, "utf8");
 	}
 
+	static saveCsv(data: string, name?: string) {
+		name = name || "json2csv";
+		const dir = path.resolve(__dirname, "../public");
+		const file = `${dir}/${name}.csv`;
+		if(!fs.existsSync(dir)) fs.mkdirSync(dir);
+		fs.writeFileSync(file, data);
+		console.log("CSV saved");
+	}
+
 }
 
 export default Save;
