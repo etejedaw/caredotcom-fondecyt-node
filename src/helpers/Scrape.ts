@@ -8,7 +8,7 @@ class Scrape {
 	}
 
 	extractData(): any {
-		return this.extractData1();
+		return this.extractData5();
 	}
 
 	extractData1() {
@@ -37,8 +37,8 @@ class Scrape {
 
 	extractData3() {
 		const $ = cheerio.load(this.#html);
-		const data = $(".search-results #search-results .search-result .result-body").map((idx, elem) => {
-			const tempName = $(elem).find(".result-title").text();
+		const data = $(".container.seo-listing .row .row.search-results .col-xs-12 .search-result .result-body").map((idx, elem) => {
+			const tempName = $(elem).find(".result-title").text().trim();
 			const name = tempName.split("|")[0];
 			const tempBody = $(elem).find("div.result-heading").text();
 			const body = tempBody.split("•");
