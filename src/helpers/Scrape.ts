@@ -8,17 +8,16 @@ class Scrape {
 	}
 
 	extractData(): any {
-		return this.extractData4();
+		return this.extractData1();
 	}
 
 	extractData1() {
 		const $ = cheerio.load(this.#html);
-		const data = $(".row .results .group .search-result").map((_idx, elem) => {
-			const name = $(elem).find(".profile-link").text().trim();
-			const priceRank = $(elem).find(".rate-ct").text().trim();
-			const experience = $(elem).find(".block2").text().trim();
-			const age = $(elem).find(".block3").text().trim();
-			console.log({name, priceRank, experience, age});
+		const data = $(".search-results .row .results .group .individual-result.clearfix .result-wrap").map((idx, elem) => {
+			const name = $(elem).find(".profile-name").text().trim();
+			const priceRank = $(elem).find(".info-blocks .block1").text().trim();
+			const experience = $(elem).find(".info-blocks .block2").text().trim();
+			const age = $(elem).find(".info-blocks .block3").text().trim();
 			return {name, priceRank, experience, age};
 		}).get();
 		return data;
