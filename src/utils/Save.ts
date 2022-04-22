@@ -8,7 +8,7 @@ class Save {
 		const file = `${dir}/${name}.html`;
 		if(!fs.existsSync(dir)) fs.mkdirSync(dir);
 		fs.writeFileSync(file, data);
-		console.log("HTML saved");
+		console.info("HTML saved");
 	}
 
 	static toCsv(data: string, name?: string) {
@@ -17,7 +17,7 @@ class Save {
 		const file = `${dir}/${name}.csv`;
 		if(!fs.existsSync(dir)) fs.mkdirSync(dir);
 		fs.writeFileSync(file, data);
-		console.log("CSV saved");
+		console.info("CSV saved");
 	}
 
 }
