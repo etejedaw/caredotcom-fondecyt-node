@@ -33,6 +33,10 @@
             "error",
             "always"
         ],
+        "no-console": [
+            "error",
+            {"allow": ["info", "error"]}
+        ],
         "space-before-blocks": 2
     }
 }
