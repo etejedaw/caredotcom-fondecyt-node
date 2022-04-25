@@ -8,7 +8,11 @@ class Scrape {
 	}
 
 	extractData(): any {
-		return this.extractData4();
+		let extract = this.extractData1();
+		if(extract.length == 0) extract = this.extractData2();
+		if(extract.length == 0) extract = this.extractData3();
+		if(extract.length == 0) extract = this.extractData4();
+		return extract;
 	}
 
 	extractData1() {
@@ -54,7 +58,7 @@ class Scrape {
 
 	extractData4() {
 		const $ = cheerio.load(this.#html);
-		return $(".MuiGrid-root.MuiGrid-item .MuiGrid-root.MuiGrid-container .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiBox-root").map((idx, elem) => {
+		const data = $(".MuiGrid-root.MuiGrid-item .MuiGrid-root.MuiGrid-container .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiBox-root").map((idx, elem) => {
 			const tempName = $(elem).find("h3.MuiTypography-root.MuiTypography-h3").text().trim();
 			const name = tempName.split("|")[0];
 			const tempBody = $(elem).find("h5:nth-child(2)").text();
@@ -65,6 +69,14 @@ class Scrape {
 			const age = body[2].trim();
 			return {name, priceRank, experience, age};
 		}).get();
+		return this.checkRepeat(data);
+	}
+
+	checkRepeat(data: Array<object>) {
+		const dataStringify = data.map(item => JSON.stringify(item));
+		const dataSet = new Set(dataStringify);
+		const newData = [...dataSet].map(item => JSON.parse(item));
+		return [...newData];
 	}
 
 }
