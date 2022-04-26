@@ -24,7 +24,6 @@ class Wayback {
 			return timeTravel.mementos.list;
 		}
 		catch (error) {
-			console.error(`Not found links in ${this.#uri}`);
 			return [] as List[];
 		}
 	}
