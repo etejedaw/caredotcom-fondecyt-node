@@ -40,4 +40,14 @@ const main = async () => {
 
 };
 
-main();
+const testWayback = async() => {
+	const generateUri = new GenerateUri(URL);
+	const uris = generateUri.getLinks();
+	const wayback = new Wayback(uris[0]);
+	const list = await wayback.getList();
+	console.log(list);
+};
+
+testWayback();
+
+//main();
