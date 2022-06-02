@@ -10,11 +10,11 @@ class Wayback {
 
 	async #getUrls(): Promise<TimeTravel> {
 		const link = `http://timetravel.mementoweb.org/timemap/json/${this.#uri}`;
-		const initOpt: RequestInit = {
+		const requestInit: RequestInit = {
 			method: "GET",
 			headers: {"Content-Type": "application/json"}
 		};
-		const response = await fetch(link, initOpt);
+		const response = await fetch(link, requestInit);
 		return await response.json();
 	}
 
