@@ -1,5 +1,7 @@
 import fetch, {RequestInit} from "node-fetch";
 import TimeTravel, {List} from "../interfaces/TimeTravel";
+import DateTime from "../utils/DateTime";
+import dateTime from "../utils/DateTime";
 
 class Wayback {
 	readonly #uri: string;
@@ -43,16 +45,15 @@ class Wayback {
 	}
 
 	#checkRepeat(list: List[]): List[] {
-		const newList = list.filter((item, index, self) => {
+		return list.filter((item, index, self) => {
 			const datetime = item.datetime;
-			const formatDate = `${datetime.getFullYear()}-${datetime.getUTCMonth()+1}-${datetime.getUTCDate()}`;
-			return index === self.findIndex(t => {
-				const newDatetime = t.datetime;
-				const newFormatDate =`${newDatetime.getFullYear()}-${newDatetime.getUTCMonth()+1}-${newDatetime.getUTCDate()}`;
+			const formatDate = DateTime.toStandardString(datetime);
+			return index === self.findIndex(newItem => {
+				const newDatetime = newItem.datetime;
+				const newFormatDate = DateTime.toStandardString(newDatetime);
 				return formatDate === newFormatDate;
 			});
 		});
-		return newList;
 	}
 
 }
