@@ -1,4 +1,7 @@
 import Environment from "../config/Environment";
+import UriData from "../interfaces/UriData";
+import DataType from "../enum/DataType";
+import uriData from "../interfaces/UriData";
 
 class GenerateUri {
 	readonly #baseUrl: string;
@@ -9,15 +12,28 @@ class GenerateUri {
 		this.#environment = new Environment();
 	}
 
-	getLinks(): Array<string> {
-		const links = [] as Array<string>;
-		this.#environment.OFFERS.forEach(offer => {
-			this.#environment.LOCAL_AREAS.forEach(localArea => {
-				const uri = `${this.#baseUrl}/${offer}/${localArea}`;
-				links.push(uri);
+	getOfferLinks(): Array<UriData> {
+		const links = this.#environment.OFFERS.map(offerName => {
+			return this.#environment.LOCAL_AREAS.map(localArea => {
+				const uri = `${this.#baseUrl}/${offerName}/${localArea}`;
+				const dataType = DataType.OFFER;
+				const information = offerName;
+				return {uri, dataType, localArea, information};
 			});
 		});
-		return links;
+		return links.flat() as Array<uriData>;
+	}
+
+	getJobsLinks(): Array<UriData> {
+		const links = this.#environment.JOBS.map(jobName => {
+			return this.#environment.LOCAL_AREAS.map(localArea => {
+				const uri = `${this.#baseUrl}/${jobName}/${localArea}`;
+				const dataType = DataType.JOB;
+				const information = jobName;
+				return {uri, dataType, localArea, information};
+			});
+		});
+		return links.flat() as Array<uriData>;
 	}
 
 }
