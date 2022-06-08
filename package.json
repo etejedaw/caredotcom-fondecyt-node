@@ -7,7 +7,8 @@
     "start": "npx tsc && node dist/app.js",
     "build": "npx tsc -b",
     "dev": "npx nodemon -w './**/*.ts' --exec 'ts-node' src/app.ts",
-    "lint": "npx eslint . --ext .ts --fix",
+    "lint": "npx eslint . --ext .ts",
+    "lint:fix": "npx eslint . --ext .ts --fix",
     "test": "jest"
   },
   "repository": {
