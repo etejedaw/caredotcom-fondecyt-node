@@ -1,5 +1,6 @@
 import cheerio from "cheerio";
 import Provider from "../interfaces/Provider";
+import ArrayExtended from "../utils/ArrayExtended";
 
 class Scrape {
 	readonly #html: string;
@@ -45,16 +46,12 @@ class Scrape {
 			const name = tempName.split("|")[0];
 			const tempBody = $(elem).find("div.result-heading").text();
 			const body = tempBody.split("•");
-			if (!this.hasAllValues(body)) return;
+			if (!ArrayExtended.hasAllValues(body, 3)) return;
 			const priceRank = body[0].trim();
 			const experience = body[1].trim();
 			const age = body[2].trim();
 			return {name, priceRank, experience, age};
 		}).get();
-	}
-
-	hasAllValues(body: Array<string>) {
-		return body.length === 3;
 	}
 
 	extractData4(): Provider[] {
@@ -64,20 +61,13 @@ class Scrape {
 			const name = tempName.split("|")[0];
 			const tempBody = $(elem).find("h5:nth-child(2)").text();
 			const body = tempBody.split("•");
-			if (!this.hasAllValues(body)) return;
+			if (!ArrayExtended.hasAllValues(body, 3)) return;
 			const priceRank = body[0].trim();
 			const experience = body[1].trim();
 			const age = body[2].trim();
 			return {name, priceRank, experience, age};
-		}).get();
-		return this.checkRepeat(data);
-	}
-
-	checkRepeat(data: Array<object>): Provider[] {
-		const dataStringify = data.map(item => JSON.stringify(item));
-		const dataSet = new Set(dataStringify);
-		const newData = [...dataSet].map(item => JSON.parse(item));
-		return [...newData];
+		}).get() as Provider[];
+		return ArrayExtended.cleanObjectRepeats(data);
 	}
 
 }
