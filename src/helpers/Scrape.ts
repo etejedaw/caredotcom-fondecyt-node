@@ -1,4 +1,5 @@
 import cheerio from "cheerio";
+import Provider from "../interfaces/Provider";
 
 class Scrape {
 	readonly #html: string;
@@ -7,7 +8,7 @@ class Scrape {
 		this.#html = html;
 	}
 
-	extractData(): any {
+	extractData(): Provider[] {
 		let extract = this.extractData1();
 		if(extract.length == 0) extract = this.extractData2();
 		if(extract.length == 0) extract = this.extractData3();
@@ -15,18 +16,18 @@ class Scrape {
 		return extract;
 	}
 
-	extractData1() {
+	extractData1(): Provider[] {
 		const $ = cheerio.load(this.#html);
 		return $(".search-results .row .results .group .individual-result.clearfix .result-wrap").map((idx, elem) => {
 			const name = $(elem).find(".profile-name").text().trim();
 			const priceRank = $(elem).find(".info-blocks .block1").text().trim();
 			const experience = $(elem).find(".info-blocks .block2").text().trim();
 			const age = $(elem).find(".info-blocks .block3").text().trim();
-			return {name, priceRank, experience, age};
+			return {name, priceRank, experience, age} as Provider;
 		}).get();
 	}
 
-	extractData2() {
+	extractData2(): Provider[] {
 		const $ = cheerio.load(this.#html);
 		return $(".mob-row .result .result-body .individual-info").map((_idx, elem) => {
 			const name = $(elem).find(".pro-title").text().trim();
@@ -37,7 +38,7 @@ class Scrape {
 		}).get();
 	}
 
-	extractData3() {
+	extractData3(): Provider[] {
 		const $ = cheerio.load(this.#html);
 		return $(".container.seo-listing .row .row.search-results .col-xs-12 .search-result .result-body").map((idx, elem) => {
 			const tempName = $(elem).find(".result-title").text().trim();
@@ -56,7 +57,7 @@ class Scrape {
 		return body.length === 3;
 	}
 
-	extractData4() {
+	extractData4(): Provider[] {
 		const $ = cheerio.load(this.#html);
 		const data = $(".MuiGrid-root.MuiGrid-item .MuiGrid-root.MuiGrid-container .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiBox-root").map((idx, elem) => {
 			const tempName = $(elem).find("h3.MuiTypography-root.MuiTypography-h3").text().trim();
@@ -72,7 +73,7 @@ class Scrape {
 		return this.checkRepeat(data);
 	}
 
-	checkRepeat(data: Array<object>) {
+	checkRepeat(data: Array<object>): Provider[] {
 		const dataStringify = data.map(item => JSON.stringify(item));
 		const dataSet = new Set(dataStringify);
 		const newData = [...dataSet].map(item => JSON.parse(item));
