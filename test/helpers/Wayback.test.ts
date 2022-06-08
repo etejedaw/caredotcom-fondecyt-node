@@ -6,8 +6,9 @@ describe("Wayback", () => {
 
 	const URL = "https://www.care.com";
 	const generateUri = new GenerateUri(URL);
-	const uris = generateUri.getLinks();
-	const wayback = new Wayback(uris[4]);
+	const offerLinks = generateUri.getOfferLinks();
+	const uri = offerLinks[0].uri;
+	const wayback = new Wayback(uri);
 
 	describe("getList", () => {
 		it("should return a list without duplicated in date", async() => {
