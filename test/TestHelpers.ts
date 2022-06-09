@@ -8,10 +8,8 @@ import path from "path";
 class TestHelpers {
 
 	static async init() {
-		if (!this.checkPublicDir() || !this.hasPages()) {
-			this.makePublicDir();
-			await TestHelpers.downloadHtml();
-		}
+		if (!this.checkPublicDir()) this.makePublicDir();
+		if (!this.hasPages()) await TestHelpers.downloadHtml();
 	}
 
 	static checkPublicDir(): boolean {
@@ -51,6 +49,13 @@ class TestHelpers {
 				}
 			}
 		}
+	}
+
+	static itemInFolder(): number {
+		if(!this.checkPublicDir() || !this.hasPages()) return 0;
+		const publicDir = path.resolve(__dirname, "../dist/src/public");
+		const contentDir = fs.readdirSync(publicDir);
+		return contentDir.length;
 	}
 
 }
