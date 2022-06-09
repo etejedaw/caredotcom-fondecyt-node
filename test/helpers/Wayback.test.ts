@@ -11,13 +11,13 @@ describe("Wayback", () => {
 	const uri = offerLinks[0].uri;
 	const wayback = new Wayback(uri);
 
-	jest.setTimeout(5000);
+	jest.setTimeout(10000);
 
 	describe("getList", () => {
 		it("should return a list without duplicated in date", async() => {
 			const list = await wayback.getList();
+			await Sleep.sleep(5000);
 			const fullList = await wayback.getFullList();
-			await Sleep.sleep(4000);
 			const newFullList = fullList.map(list => list.datetime);
 			const fullListDate = newFullList.map(list => {
 				const transformDate = new Date(list);
