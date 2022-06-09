@@ -1,6 +1,7 @@
 import Wayback from "../../src/helpers/Wayback";
 import GenerateUri from "../../src/helpers/GenerateUri";
 import DateTime from "../../src/utils/DateTime";
+import Sleep from "../../src/utils/Sleep";
 
 describe("Wayback", () => {
 
@@ -10,12 +11,13 @@ describe("Wayback", () => {
 	const uri = offerLinks[0].uri;
 	const wayback = new Wayback(uri);
 
+	jest.setTimeout(5000);
+
 	describe("getList", () => {
 		it("should return a list without duplicated in date", async() => {
 			const list = await wayback.getList();
-			jest.setTimeout(4000);
 			const fullList = await wayback.getFullList();
-
+			await Sleep.sleep(4000);
 			const newFullList = fullList.map(list => list.datetime);
 			const fullListDate = newFullList.map(list => {
 				const transformDate = new Date(list);
