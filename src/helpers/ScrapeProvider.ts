@@ -2,14 +2,14 @@ import cheerio from "cheerio";
 import Provider from "../interfaces/Provider";
 import ArrayExtended from "../utils/ArrayExtended";
 
-class Scrape {
+class ScrapeProvider {
 	readonly #html: string;
 
 	constructor(html: string) {
 		this.#html = html;
 	}
 
-	extractData(): Provider[] {
+	init(): Provider[] {
 		let extract = this.extractData1();
 		if(extract.length == 0) extract = this.extractData2();
 		if(extract.length == 0) extract = this.extractData3();
@@ -72,4 +72,4 @@ class Scrape {
 
 }
 
-export default Scrape;
+export default ScrapeProvider;
