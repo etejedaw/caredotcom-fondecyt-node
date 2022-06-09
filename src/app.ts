@@ -3,8 +3,9 @@ import GenerateUri from "./helpers/GenerateUri";
 import Getter from "./helpers/Getter";
 import Sleep from "./utils/Sleep";
 import Save from "./utils/Save";
-import Scrape from "./helpers/Scrape";
+import ScrapeProvider from "./helpers/ScrapeProvider";
 import Csv from "./utils/Csv";
+import TestHelpers from "../test/TestHelpers";
 
 const URL = "https://www.care.com";
 
@@ -15,18 +16,18 @@ const main = async () => {
 	const dataArray: any = [];
 
 	const generateUri = new GenerateUri(URL);
-	const uris = generateUri.getLinks();
+	const uris = generateUri.getJobsLinks();
 
 	for (const uri of uris) {
-		const wayback = new Wayback(uri);
+		const wayback = new Wayback(uri.uri);
 		const list = await wayback.getList();
 		if (list.length !== 0) {
 			for (const url of list) {
 				const pageUrl = url.uri;
 				const getter = await Getter.build(pageUrl);
 				const html = getter.html;
-				const scrape = new Scrape(html);
-				const data = scrape.extractData();
+				const scrape = new ScrapeProvider(html);
+				const data = scrape.init();
 				if (data.length !== 0) dataArray.push(...data);
 				else emptyScrape.push(url.uri);
 			}
@@ -39,15 +40,5 @@ const main = async () => {
 	Save.toCsv(dataCsv, "data");
 
 };
-
-const testWayback = async() => {
-	const generateUri = new GenerateUri(URL);
-	const uris = generateUri.getLinks();
-	const wayback = new Wayback(uris[0]);
-	const list = await wayback.getList();
-	console.log(list);
-};
-
-testWayback();
 
 //main();
