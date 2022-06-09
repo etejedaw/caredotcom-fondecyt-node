@@ -6,6 +6,30 @@ import fs from "fs";
 import path from "path";
 
 class TestHelpers {
+
+	static async init() {
+		if (!this.checkPublicDir() || !this.hasPages()) {
+			this.makePublicDir();
+			await TestHelpers.downloadHtml();
+		}
+	}
+
+	static checkPublicDir(): boolean {
+		const publicDir = path.resolve(__dirname, "../dist/src/public");
+		return fs.existsSync(publicDir);
+	}
+
+	static hasPages() {
+		const publicDir = path.resolve(__dirname, "../dist/src/public");
+		const contentDir = fs.readdirSync(publicDir);
+		return contentDir.length !== 0;
+	}
+
+	static makePublicDir() {
+		const publicDir = path.resolve(__dirname, "../dist/src/public");
+		fs.mkdirSync(publicDir);
+	}
+
 	static async downloadHtml() {
 		const URL = "https://www.care.com";
 		const publicDir = path.resolve(__dirname, "../dist/src/public");
@@ -20,27 +44,13 @@ class TestHelpers {
 					const pageUrl = url.uri;
 					const getter = await Getter.build(pageUrl);
 					const html = getter.html;
-					Save.toHtml(html, `page-${i}`, publicDir);
+					const iToString = i.toString();
+					const j = iToString.padStart(3,"0");
+					Save.toHtml(html, `page-${j}`, publicDir);
 					i++;
 				}
 			}
 		}
-	}
-
-	static checkPublicDir(): boolean {
-		const publicDir = path.resolve(__dirname, "../dist/src/public");
-		return fs.existsSync(publicDir);
-	}
-
-	static makePublicDir() {
-		const publicDir = path.resolve(__dirname, "../dist/src/public");
-		fs.mkdirSync(publicDir);
-	}
-
-	static hasPages() {
-		const publicDir = path.resolve(__dirname, "../dist/src/public");
-		const contentDir = fs.readdirSync(publicDir);
-		return contentDir.length !== 0;
 	}
 
 }
