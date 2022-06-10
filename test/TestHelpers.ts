@@ -7,31 +7,31 @@ import path from "path";
 
 class TestHelpers {
 
-	static async init() {
-		if (!this.checkPublicDir()) this.makePublicDir();
-		if (!this.hasPages()) await TestHelpers.downloadHtml();
+	static async init(dir: string) {
+		if (!this.checkPublicDir(dir)) this.makePublicDir(dir);
+		if (!this.hasPages(dir)) await TestHelpers.downloadHtml(dir);
 	}
 
-	static checkPublicDir(): boolean {
-		const publicDir = path.resolve(__dirname, "../dist/src/public");
+	static checkPublicDir(dir: string): boolean {
+		const publicDir = path.resolve(__dirname, dir);
 		return fs.existsSync(publicDir);
 	}
 
-	static hasPages() {
-		const publicDir = path.resolve(__dirname, "../dist/src/public");
+	static hasPages(dir: string) {
+		const publicDir = path.resolve(__dirname, dir);
 		const contentDir = fs.readdirSync(publicDir);
 		return contentDir.length !== 0;
 	}
 
-	static makePublicDir() {
-		const publicDir = path.resolve(__dirname, "../dist/src/public");
+	static makePublicDir(dir: string) {
+		const publicDir = path.resolve(__dirname, dir);
 		fs.mkdirSync(publicDir);
 	}
 
-	static async downloadHtml() {
+	static async downloadHtml(dir: string) {
 		const URL = "https://www.care.com";
-		const publicDir = path.resolve(__dirname, "../dist/src/public");
-		let i = 0;
+		const publicDir = path.resolve(__dirname, dir);
+		let counter = 0;
 		const generateUri = new GenerateUri(URL);
 		const offerList = generateUri.getOfferLinks();
 		for(const {uri} of offerList) {
@@ -42,20 +42,19 @@ class TestHelpers {
 					const pageUrl = url.uri;
 					const getter = await Getter.build(pageUrl);
 					const html = getter.html;
-					const iToString = i.toString();
-					const j = iToString.padStart(3,"0");
-					Save.toHtml(html, `page-${j}`, publicDir);
-					i++;
+					const counterToString = counter.toString();
+					const counterToFormat = counterToString.padStart(3,"0");
+					Save.toHtml(html, `page-${counterToFormat}`, publicDir);
+					counter++;
 				}
 			}
 		}
 	}
 
-	static itemInFolder(): number {
-		if(!this.checkPublicDir() || !this.hasPages()) return 0;
+	static itemInFolder(dir: string): Array<string> {
+		if(!this.checkPublicDir(dir) || !this.hasPages(dir)) return [];
 		const publicDir = path.resolve(__dirname, "../dist/src/public");
-		const contentDir = fs.readdirSync(publicDir);
-		return contentDir.length;
+		return fs.readdirSync(publicDir);
 	}
 
 }
