@@ -16,7 +16,7 @@ describe("Wayback", () => {
 	describe("getList", () => {
 		it("should return a list without duplicated in date", async() => {
 			const list = await wayback.getList();
-			await Sleep.sleep(5000);
+			await Sleep.sleep(4000);
 			const fullList = await wayback.getFullList();
 			const newFullList = fullList.map(list => list.datetime);
 			const fullListDate = newFullList.map(list => {
