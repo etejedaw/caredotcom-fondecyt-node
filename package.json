@@ -4,12 +4,12 @@
   "description": "From automation to home production via the gig economy: a novel gender-based análisis",
   "main": "app.js",
   "scripts": {
-    "start": "npx tsc && node dist/app.js",
+    "start": "npx tsc && node dist/src/app.js",
     "build": "npx tsc -b",
     "dev": "npx nodemon -w './**/*.ts' --exec 'ts-node' src/app.ts",
     "lint": "npx eslint . --ext .ts",
     "lint:fix": "npx eslint . --ext .ts --fix",
-    "test": "jest"
+    "test": "npx jest"
   },
   "repository": {
     "type": "git",
