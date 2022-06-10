@@ -2,23 +2,30 @@ import ScrapeProvider from "./ScrapeProvider";
 import Provider from "../interfaces/Provider";
 import PageData from "../interfaces/PageData";
 import ExtraData from "../interfaces/ExtraData";
+import Data from "../types/Data";
+import MergeData from "../types/MergeData";
 
 class Scrape {
 	readonly #html: string;
+	readonly #extraData: ExtraData;
 
-	constructor(html: string) {
+	constructor(html: string, extraData: ExtraData) {
 		this.#html = html;
+		this.#extraData = extraData;
 	}
 
-	init() {
+	getData(): Data {
 		const provider = this.getProviders();
 		const pageData = this.getPageData();
 		const extraData = this.getExtraData();
-		return {
-			...provider,
-			...pageData,
-			...extraData
-		};
+		return {provider, pageData, extraData};
+	}
+
+	getMergeData(): MergeData[] {
+		const providers = this.getProviders();
+		const pageData = this.getPageData();
+		const extraData = this.getExtraData();
+		return providers.map(provider => Object.assign(provider, pageData, extraData));
 	}
 
 	getProviders(): Provider[] {
@@ -26,12 +33,12 @@ class Scrape {
 		return scrapeProvider.extract();
 	}
 
-	getPageData(): PageData[] {
-		return [];
+	getPageData(): PageData {
+		return {} as PageData;
 	}
 
-	getExtraData(): ExtraData[] {
-		return [];
+	getExtraData(): ExtraData {
+		return this.#extraData;
 	}
 }
 
