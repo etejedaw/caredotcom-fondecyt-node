@@ -23,7 +23,7 @@ class Scrape {
 
 	getProviders(): Provider[] {
 		const scrapeProvider = new ScrapeProvider(this.#html);
-		return scrapeProvider.init();
+		return scrapeProvider.extract();
 	}
 
 	getPageData(): PageData[] {

@@ -9,15 +9,15 @@ class ScrapeProvider {
 		this.#html = html;
 	}
 
-	init(): Provider[] {
-		let extract = this.extractData1();
-		if(extract.length == 0) extract = this.extractData2();
-		if(extract.length == 0) extract = this.extractData3();
-		if(extract.length == 0) extract = this.extractData4();
+	extract(): Provider[] {
+		let extract = this.extractDataV1();
+		if(extract.length == 0) extract = this.extractDataV2();
+		if(extract.length == 0) extract = this.extractDataV3();
+		if(extract.length == 0) extract = this.extractDataV4();
 		return extract;
 	}
 
-	extractData1(): Provider[] {
+	extractDataV1(): Provider[] {
 		const $ = cheerio.load(this.#html);
 		return $(".search-results .row .results .group .individual-result.clearfix .result-wrap").map((idx, elem) => {
 			const name = $(elem).find(".profile-name").text().trim();
@@ -28,7 +28,7 @@ class ScrapeProvider {
 		}).get();
 	}
 
-	extractData2(): Provider[] {
+	extractDataV2(): Provider[] {
 		const $ = cheerio.load(this.#html);
 		return $(".mob-row .result .result-body .individual-info").map((_idx, elem) => {
 			const name = $(elem).find(".pro-title").text().trim();
@@ -39,7 +39,7 @@ class ScrapeProvider {
 		}).get();
 	}
 
-	extractData3(): Provider[] {
+	extractDataV3(): Provider[] {
 		const $ = cheerio.load(this.#html);
 		return $(".container.seo-listing .row .row.search-results .col-xs-12 .search-result .result-body").map((idx, elem) => {
 			const tempName = $(elem).find(".result-title").text().trim();
@@ -54,7 +54,7 @@ class ScrapeProvider {
 		}).get();
 	}
 
-	extractData4(): Provider[] {
+	extractDataV4(): Provider[] {
 		const $ = cheerio.load(this.#html);
 		const data = $(".MuiGrid-root.MuiGrid-item .MuiGrid-root.MuiGrid-container .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiGrid-root.MuiGrid-item .MuiBox-root .MuiBox-root").map((idx, elem) => {
 			const tempName = $(elem).find("h3.MuiTypography-root.MuiTypography-h3").text().trim();
