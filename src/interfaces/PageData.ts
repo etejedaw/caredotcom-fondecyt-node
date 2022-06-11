@@ -1,5 +1,4 @@
 interface PageData {
-    pageNumber: number;
     providers: number;
     average: number;
 }
