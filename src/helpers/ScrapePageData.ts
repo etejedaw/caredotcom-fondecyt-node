@@ -1,5 +1,5 @@
 import PageData from "../interfaces/PageData";
-import cheerio from "cheerio";
+import cheerio, {html} from "cheerio";
 import ObjectExtended from "../utils/ObjectExtended";
 import extraData from "../interfaces/ExtraData";
 
@@ -24,6 +24,20 @@ class ScrapePageData {
 
 	extractDataV1(): {providers: number, average: number} {
 		const $ = cheerio.load(this.#html);
+		//return numbers by ',' or '.'
+		const regex = /(\d[\d.|,]*)/g;
+		const data = $(".letterbox-expander .letterbox .sub-headline").text();
+		const pageData = data.match(regex);
+		if(!pageData) return {} as PageData;
+		const providersTemp = pageData[0].replace(",", "");
+		const providers = parseInt(providersTemp);
+		const average = parseFloat(pageData[1]);
+		return {providers, average};
+	}
+
+	extractDataV2(): {providers: number, average: number} {
+		const $ = cheerio.load(this.#html);
+		//return numbers by ',' or '.'
 		const regex = /(\d[\d.|,]*)/g;
 		const data = $("h3.college-sub-head-wrap").text();
 		const pageData = data.match(regex);
@@ -34,10 +48,6 @@ class ScrapePageData {
 		return {providers, average};
 	}
 
-	extractDataV2(): {providers: number, average: number} {
-		return {} as PageData;
-	}
-
 	extractPage(): {pageNumber: number} {
 		let extract = this.extractPageV1();
 		if (ObjectExtended.isEmpty(extract)) extract = this.extractPageV2();
@@ -45,13 +55,11 @@ class ScrapePageData {
 	}
 
 	extractPageV1(): {pageNumber: number} {
-		const pageNumber = 0;
-		return {pageNumber};
+		return {} as {pageNumber: number};
 	}
 
 	extractPageV2(): {pageNumber: number} {
-		const pageNumber = 0;
-		return {pageNumber};
+		return {} as {pageNumber: number};
 	}
 
 }
