@@ -18,49 +18,30 @@ class ScrapePageData {
 	}
 
 	extractDataV1(): PageData {
-		const $ = cheerio.load(this.#html);
-		//return numbers by ',' or '.'
-		const regex = /(\d[\d.|,]*)/g;
-		const data = $(".letterbox-expander .letterbox .sub-headline").text();
-		const pageData = data.match(regex);
-		if(!pageData) return {} as PageData;
-		const providersTemp = pageData[0].replace(",", "");
-		const providers = parseInt(providersTemp);
-		const average = parseFloat(pageData[1]);
-		return {providers, average};
+		const query = ".letterbox-expander .letterbox .sub-headline";
+		return this.execScrapeQuery(query);
 	}
 
 	extractDataV2(): PageData {
-		const $ = cheerio.load(this.#html);
-		//return numbers by ',' or '.'
-		const regex = /(\d[\d.|,]*)/g;
-		const data = $("h3.college-sub-head-wrap").text();
-		const pageData = data.match(regex);
-		if(!pageData) return {} as PageData;
-		const providersTemp = pageData[0].replace(",", "");
-		const providers = parseInt(providersTemp);
-		const average = parseFloat(pageData[1]);
-		return {providers, average};
+		const query = "h3.college-sub-head-wrap";
+		return this.execScrapeQuery(query);
 	}
 
 	extractDataV3(): PageData {
-		const $ = cheerio.load(this.#html);
-		//return numbers by ',' or '.'
-		const regex = /(\d[\d.|,]*)/g;
-		const data = $(".heroImg .body-1").text();
-		const pageData = data.match(regex);
-		if(!pageData) return {} as PageData;
-		const providersTemp = pageData[0].replace(",", "");
-		const providers = parseInt(providersTemp);
-		const average = parseFloat(pageData[1]);
-		return {providers, average};
+		const query = ".heroImg .body-1";
+		return this.execScrapeQuery(query);
 	}
 
 	extractDataV4(): PageData {
+		const query = ".MuiGrid-root.MuiGrid-container .MuiGrid-root.MuiGrid-item [role='dialog'] [data-testid='sub-text']";
+		return this.execScrapeQuery(query);
+	}
+
+	execScrapeQuery(query: string): PageData {
 		const $ = cheerio.load(this.#html);
 		//return numbers by ',' or '.'
 		const regex = /(\d[\d.|,]*)/g;
-		const data = $(".MuiGrid-root.MuiGrid-container .MuiGrid-root.MuiGrid-item [role='dialog'] [data-testid='sub-text']").text();
+		const data = $(query).text();
 		const pageData = data.match(regex);
 		if(!pageData) return {} as PageData;
 		const providersTemp = pageData[0].replace(",", "");
