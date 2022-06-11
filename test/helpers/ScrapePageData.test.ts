@@ -29,7 +29,7 @@ describe("ScrapePageData", () => {
 				const dir = path.resolve(__dirname, publicDir);
 				const html = Load.html(page, dir);
 				const scrapeProvider = new ScrapePageData(html);
-				const scrape = scrapeProvider.extractData();
+				const scrape = scrapeProvider.extract();
 				if(Object.keys(scrape).length) return page;
 			});
 			const matchLength = match.length;
@@ -46,7 +46,7 @@ describe("ScrapePageData", () => {
 				const dir = path.resolve(__dirname, publicDir);
 				const html = Load.html(page, dir);
 				const scrapePageData = new ScrapePageData(html);
-				const scrape = scrapePageData.extractPage();
+				const scrape = scrapePageData.extract();
 				if(Object.keys(scrape).length) return page;
 			});
 			const matchLength = match.length;
@@ -74,7 +74,6 @@ describe("ScrapePageData", () => {
 				const html = Load.html(page, dir);
 				const scrape = new ScrapePageData(html);
 				const data = scrape.extract();
-				expect(data).toHaveProperty("pageNumber");
 				expect(data).toHaveProperty("providers");
 				expect(data).toHaveProperty("average");
 			});
@@ -86,12 +85,33 @@ describe("ScrapePageData", () => {
 				const html = Load.html(page, dir);
 				const scrape = new ScrapePageData(html);
 				const data = scrape.extract();
-				expect(typeof data.pageNumber).toHaveProperty("number");
 				expect(typeof data.providers).toHaveProperty("number");
 				expect(typeof data.average).toHaveProperty("number");
 			});
 		});
 
+	});
+
+	describe("extractData", () => {
+		const itemInFolder = TestHelpers.itemInFolder(publicDir);
+		const newItemInFolder = itemInFolder.map(page => page.replace(".html", ""));
+		const dir = path.resolve(__dirname, publicDir);
+		it("should extract data", () => {
+			const html = Load.html("page-011", dir);
+			const scrape = new ScrapePageData(html);
+			const data = scrape.extractDataV4();
+			expect(data.providers).toBe(4311);
+			expect(data.average).toBe(15.25);
+		});
+		it("should return a not empty object", () => {
+			const notMatch = newItemInFolder.filter(page => {
+				const html = Load.html(page, dir);
+				const scrape = new ScrapePageData(html);
+				const data = scrape.extract();
+				if(Object.keys(data).length === 0) return page;
+			});
+			expect(notMatch.length).toBe(0);
+		});
 	});
 
 });
