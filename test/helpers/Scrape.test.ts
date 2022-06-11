@@ -24,7 +24,7 @@ describe("Scrape", () => {
 			const getter = await Getter.build(url);
 			const html = getter.html;
 			const scrape = new Scrape(html, extraData);
-			console.log(scrape.getData());
+			expect(scrape.getData()).toHaveProperty("provider");
 		});
 	});
 });

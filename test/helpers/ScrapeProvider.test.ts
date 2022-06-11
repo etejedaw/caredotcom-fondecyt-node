@@ -2,7 +2,6 @@ import ScrapeProvider from "../../src/helpers/ScrapeProvider";
 import path from "path";
 import Load from "../../src/utils/Load";
 import TestHelpers from "../TestHelpers";
-import testHelpers from "../TestHelpers";
 
 const publicDir = path.resolve(__dirname, "../../dist/src/public");
 
@@ -15,12 +14,12 @@ describe("ScrapeProvider", () => {
 		});
 
 		it("should exists pages saves in public folders", () => {
-			const itemInFolder = testHelpers.itemInFolder(publicDir);
+			const itemInFolder = TestHelpers.itemInFolder(publicDir);
 			expect(itemInFolder).not.toEqual(0);
 		});
 	});
 
-	describe("init()", () => {
+	describe("extract()", () => {
 		const html = Load.html("page-001", publicDir);
 		const scrape = new ScrapeProvider(html);
 		const data = scrape.extract();
@@ -59,7 +58,7 @@ describe("ScrapeProvider", () => {
 				const html = Load.html(page, dir);
 				const scrapeProvider = new ScrapeProvider(html);
 				const scrape = scrapeProvider.extract();
-				if(scrape.length !== 0) return page;
+				if(scrape.length) return page;
 			});
 			const matchLength = match.length;
 			expect(matchLength).toEqual(folderLength);

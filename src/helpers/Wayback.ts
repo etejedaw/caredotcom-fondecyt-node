@@ -20,7 +20,7 @@ class Wayback {
 			const getUrl = await this.#getUrls();
 			return getUrl.mementos.list;
 		}
-		catch (error) {
+		catch {
 			return [] as List[];
 		}
 	}

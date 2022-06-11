@@ -11,9 +11,9 @@ class ScrapeProvider {
 
 	extract(): Provider[] {
 		let extract = this.extractDataV1();
-		if(extract.length == 0) extract = this.extractDataV2();
-		if(extract.length == 0) extract = this.extractDataV3();
-		if(extract.length == 0) extract = this.extractDataV4();
+		if(ArrayExtended.isEmpty(extract)) extract = this.extractDataV2();
+		if(ArrayExtended.isEmpty(extract)) extract = this.extractDataV3();
+		if(ArrayExtended.isEmpty(extract)) extract = this.extractDataV4();
 		return extract;
 	}
 
