@@ -1,6 +1,6 @@
 interface PageData {
-    providers: number;
-    average: number;
+    providers: number | "No Data";
+    average: number | "No Data";
 }
 
 export default PageData;
