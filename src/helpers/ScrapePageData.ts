@@ -14,7 +14,8 @@ class ScrapePageData {
 		if(ObjectExtended.isEmpty(extract)) extract = this.extractDataV2();
 		if(ObjectExtended.isEmpty(extract)) extract = this.extractDataV3();
 		if(ObjectExtended.isEmpty(extract)) extract = this.extractDataV4();
-		return extract;
+		if(ObjectExtended.isEmpty(extract)) extract = this.#fillNoData();
+		return this.#sanitizeNaN(extract);
 	}
 
 	extractDataV1(): PageData {
@@ -47,6 +48,19 @@ class ScrapePageData {
 		const providersTemp = pageData[0].replace(",", "");
 		const providers = parseInt(providersTemp);
 		const average = parseFloat(pageData[1]);
+		return {providers, average};
+	}
+
+	#fillNoData(): PageData {
+		const providers = "No Data";
+		const average = "No Data";
+		return {providers, average};
+	}
+
+	#sanitizeNaN(pageData: PageData): PageData {
+		let {providers, average} = {...pageData};
+		if(String(providers) === "NaN") providers = "No Data";
+		if(String(average) === "NaN") average = "No Data";
 		return {providers, average};
 	}
 

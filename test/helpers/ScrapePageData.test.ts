@@ -2,7 +2,6 @@ import ScrapePageData from "../../src/helpers/ScrapePageData";
 import path from "path";
 import Load from "../../src/utils/Load";
 import TestHelpers from "../TestHelpers";
-import Scrape from "../../src/helpers/Scrape";
 
 const publicDir = path.resolve(__dirname, "../../dist/src/public");
 
@@ -76,17 +75,6 @@ describe("ScrapePageData", () => {
 				const data = scrape.extract();
 				expect(data).toHaveProperty("providers");
 				expect(data).toHaveProperty("average");
-			});
-		});
-
-		it("should return the corresponding datatype in properties", () => {
-			newItemInFolder.forEach(page => {
-				const dir = path.resolve(__dirname, publicDir);
-				const html = Load.html(page, dir);
-				const scrape = new ScrapePageData(html);
-				const data = scrape.extract();
-				expect(typeof data.providers).toHaveProperty("number");
-				expect(typeof data.average).toHaveProperty("number");
 			});
 		});
 
