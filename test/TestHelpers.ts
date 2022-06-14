@@ -13,24 +13,24 @@ class TestHelpers {
 	}
 
 	static checkPublicDir(dir: string): boolean {
-		const publicDir = path.resolve(__dirname, dir);
+		const publicDir = dir || path.resolve(__dirname, dir);
 		return fs.existsSync(publicDir);
 	}
 
 	static hasPages(dir: string) {
-		const publicDir = path.resolve(__dirname, dir);
+		const publicDir = dir || path.resolve(__dirname, dir);
 		const contentDir = fs.readdirSync(publicDir);
 		return contentDir.length !== 0;
 	}
 
 	static makePublicDir(dir: string) {
-		const publicDir = path.resolve(__dirname, dir);
+		const publicDir = dir || path.resolve(__dirname, dir);
 		fs.mkdirSync(publicDir);
 	}
 
 	static async downloadHtml(dir: string) {
 		const URL = "https://www.care.com";
-		const publicDir = path.resolve(__dirname, dir);
+		const publicDir = dir || path.resolve(__dirname, dir);
 		let counter = 0;
 		const generateUri = new GenerateUri(URL);
 		const offerList = generateUri.getOfferLinks();
@@ -52,8 +52,8 @@ class TestHelpers {
 	}
 
 	static itemInFolder(dir: string): Array<string> {
+		const publicDir = dir || path.resolve(__dirname, "../dist/src/public");
 		if(!this.checkPublicDir(dir) || !this.hasPages(dir)) return [];
-		const publicDir = path.resolve(__dirname, "../dist/src/public");
 		return fs.readdirSync(publicDir);
 	}
 
