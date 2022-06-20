@@ -1,9 +1,12 @@
 import cheerio from "cheerio";
 import Provider from "../interfaces/Provider";
 import ArrayExtended from "../utils/ArrayExtended";
+import ObjectExtended from "../utils/ObjectExtended";
 
 class ScrapeProvider {
 	readonly #html: string;
+	readonly #OBJECT_MAX_LENGTH = 4;
+	readonly #ARRAY_MAX_LENGTH = 3;
 
 	constructor(html: string) {
 		this.#html = html;
@@ -24,7 +27,9 @@ class ScrapeProvider {
 			const priceRank = $(elem).find(".info-blocks .block1").text().trim();
 			const experience = $(elem).find(".info-blocks .block2").text().trim();
 			const age = $(elem).find(".info-blocks .block3").text().trim();
-			return {name, priceRank, experience, age} as Provider;
+			const body = {name, priceRank, experience, age} as Provider;
+			if (!ObjectExtended.hasAllValues(body, this.#OBJECT_MAX_LENGTH)) return;
+			return body;
 		}).get();
 	}
 
@@ -35,7 +40,9 @@ class ScrapeProvider {
 			const priceRank = $(elem).find(".provider-detail-info .row .col-xs-5").text().trim();
 			const experience = $(elem).find(".provider-detail-info .row .col-xs-7").text().trim();
 			const age = $(elem).find(".provider-detail-info .row .hidden-xs").text().trim();
-			return {name, priceRank, experience, age};
+			const body = {name, priceRank, experience, age} as Provider;
+			if (!ObjectExtended.hasAllValues(body, this.#OBJECT_MAX_LENGTH)) return;
+			return body;
 		}).get();
 	}
 
@@ -46,11 +53,11 @@ class ScrapeProvider {
 			const name = tempName.split("|")[0];
 			const tempBody = $(elem).find("div.result-heading").text();
 			const body = tempBody.split("•");
-			if (!ArrayExtended.hasAllValues(body, 3)) return;
+			if (!ArrayExtended.hasAllValues(body, this.#ARRAY_MAX_LENGTH)) return;
 			const priceRank = body[0].trim();
 			const experience = body[1].trim();
 			const age = body[2].trim();
-			return {name, priceRank, experience, age};
+			return {name, priceRank, experience, age} as Provider;
 		}).get();
 	}
 
@@ -61,11 +68,11 @@ class ScrapeProvider {
 			const name = tempName.split("|")[0];
 			const tempBody = $(elem).find("h5:nth-child(2)").text();
 			const body = tempBody.split("•");
-			if (!ArrayExtended.hasAllValues(body, 3)) return;
+			if (!ArrayExtended.hasAllValues(body, this.#ARRAY_MAX_LENGTH)) return;
 			const priceRank = body[0].trim();
 			const experience = body[1].trim();
 			const age = body[2].trim();
-			return {name, priceRank, experience, age};
+			return {name, priceRank, experience, age} as Provider;
 		}).get() as Provider[];
 		return ArrayExtended.cleanObjectRepeats(data);
 	}

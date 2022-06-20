@@ -4,6 +4,7 @@ import PageData from "../interfaces/PageData";
 import ExtraData from "../interfaces/ExtraData";
 import Data from "../types/Data";
 import MergeData from "../types/MergeData";
+import ScrapePageData from "./ScrapePageData";
 
 class Scrape {
 	readonly #html: string;
@@ -34,7 +35,8 @@ class Scrape {
 	}
 
 	getPageData(): PageData {
-		return {} as PageData;
+		const scrapePageData = new ScrapePageData(this.#html);
+		return scrapePageData.extract();
 	}
 
 	getExtraData(): ExtraData {

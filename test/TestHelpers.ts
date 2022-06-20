@@ -44,8 +44,10 @@ class TestHelpers {
 					const html = getter.html;
 					const counterToString = counter.toString();
 					const counterToFormat = counterToString.padStart(3,"0");
-					Save.toHtml(html, `page-${counterToFormat}`, publicDir);
-					counter++;
+					if(html) {
+						Save.toHtml(html, `page-${counterToFormat}`, publicDir);
+						counter++;
+					}
 				}
 			}
 		}

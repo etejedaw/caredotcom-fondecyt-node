@@ -21,6 +21,10 @@ class Environment {
 		return this.#JOBS;
 	}
 
+	static get URL() {
+		return "https://www.care.com";
+	}
+
 }
 
 export default Environment;
