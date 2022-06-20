@@ -7,13 +7,12 @@ import Sleep from "./utils/Sleep";
 import MergeData from "./types/MergeData";
 import ArrayExtended from "./utils/ArrayExtended";
 import Save from "./utils/Save";
+import Environment from "./config/Environment";
 import path from "path";
-
-const URI = "https://www.care.com";
 
 const main = async () => {
 	const dir = path.resolve(__dirname, "../public");
-	const generateUri = new GenerateUri(URI);
+	const generateUri = new GenerateUri(Environment.URL);
 	const offerLinks = generateUri.getOfferLinks();
 	let allData = [] as MergeData[];
 	for (const offer of offerLinks) {
