@@ -1,27 +1,30 @@
+import Load from "../utils/Load";
+import path from "path";
+
 class Environment {
-	readonly #LOCAL_AREAS: Array<string>;
-	readonly #OFFERS: Array<string>;
-	readonly #JOBS: Array<string>;
 
-	constructor() {
-		this.#LOCAL_AREAS = ["chicago-il", "new-york-ny"];
-		this.#OFFERS = ["child-care", "babysitters"];
-		this.#JOBS = ["nanny-jobs", "senior-care-jobs"];
+	static get LOCAL_AREAS(): Array<string> {
+		const dir = path.resolve(__dirname, "../public");
+		const data = Load.txt("local_areas", dir);
+		data.pop();
+		return [...data];
 	}
 
-	get LOCAL_AREAS() {
-		return this.#LOCAL_AREAS;
+	static get OFFERS(): Array<string> {
+		const dir = path.resolve(__dirname, "../public");
+		const data = Load.txt("offers", dir);
+		data.pop();
+		return [...data];
 	}
 
-	get OFFERS() {
-		return this.#OFFERS;
+	static get JOBS(): Array<string> {
+		const dir = path.resolve(__dirname, "../public");
+		const data = Load.txt("jobs", dir);
+		data.pop();
+		return [...data];
 	}
 
-	get JOBS() {
-		return this.#JOBS;
-	}
-
-	static get URL() {
+	static get URL(): string {
 		return "https://www.care.com";
 	}
 
