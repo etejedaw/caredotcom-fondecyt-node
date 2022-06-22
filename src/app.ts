@@ -9,6 +9,7 @@ import ArrayExtended from "./utils/ArrayExtended";
 import Save from "./utils/Save";
 import Environment from "./config/Environment";
 import path from "path";
+import SaveType from "./types/SaveType";
 
 const main = async () => {
 	const dir = path.resolve(__dirname, "../public");
@@ -33,7 +34,12 @@ const main = async () => {
 					const data = scrape.getMergeData();
 					allData = allData.concat(data);
 					const csv = ArrayExtended.jsonToCsv(allData);
-					Save.toCsv(csv, "data", dir);
+					const saveType: SaveType = {
+						data: csv,
+						name: "offers",
+						dir
+					};
+					Save.toCsv(saveType);
 					console.info("CSV Actualizado");
 				} else console.error(`CANT EXTRACT: ${url}`);
 			}
