@@ -4,33 +4,25 @@ import Getter from "../src/helpers/Getter";
 import Save from "../src/utils/Save";
 import fs from "fs";
 import path from "path";
+import SaveType from "../src/types/SaveType";
 
 class TestHelpers {
 
-	static async init(dir: string) {
-		if (!this.checkPublicDir(dir)) this.makePublicDir(dir);
-		if (!this.hasPages(dir)) await TestHelpers.downloadHtml(dir);
-	}
-
-	static checkPublicDir(dir: string): boolean {
-		const publicDir = dir || path.resolve(__dirname, dir);
+	static checkPublicDir(publicDir: string): boolean {
 		return fs.existsSync(publicDir);
 	}
 
-	static hasPages(dir: string) {
-		const publicDir = dir || path.resolve(__dirname, dir);
+	static hasPages(publicDir: string) {
 		const contentDir = fs.readdirSync(publicDir);
 		return contentDir.length !== 0;
 	}
 
-	static makePublicDir(dir: string) {
-		const publicDir = dir || path.resolve(__dirname, dir);
+	static makePublicDir(publicDir: string) {
 		fs.mkdirSync(publicDir);
 	}
 
-	static async downloadHtml(dir: string) {
+	static async downloadHtml(publicDir: string) {
 		const URL = "https://www.care.com";
-		const publicDir = dir || path.resolve(__dirname, dir);
 		let counter = 0;
 		const generateUri = new GenerateUri(URL);
 		const offerList = generateUri.getOfferLinks();
@@ -45,7 +37,12 @@ class TestHelpers {
 					const counterToString = counter.toString();
 					const counterToFormat = counterToString.padStart(3,"0");
 					if(html) {
-						Save.toHtml(html, `page-${counterToFormat}`, publicDir);
+						const saveType: SaveType = {
+							data: html,
+							name: `page-${counterToFormat}`,
+							dir: publicDir
+						};
+						Save.toHtml(saveType);
 						counter++;
 					}
 				}
@@ -54,9 +51,8 @@ class TestHelpers {
 	}
 
 	static itemInFolder(dir: string): Array<string> {
-		const publicDir = dir || path.resolve(__dirname, "../dist/src/public");
 		if(!this.checkPublicDir(dir) || !this.hasPages(dir)) return [];
-		return fs.readdirSync(publicDir);
+		return fs.readdirSync(dir);
 	}
 
 }
