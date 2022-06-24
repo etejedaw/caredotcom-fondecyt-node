@@ -19,13 +19,14 @@ const main = async () => {
 	for (const offer of offerLinks) {
 		const uri = offer.uri;
 		const localArea = offer.localArea;
+		const information = offer.information;
 		const wayback = new Wayback(uri);
 		const list = await wayback.getList();
 		if(list.length !== 0) {
 			for (const link of list) {
 				const url = link.uri;
 				const date = link.datetime;
-				const extraData = {localArea, date} as ExtraData;
+				const extraData = {localArea, date, information} as ExtraData;
 				await Sleep.sleep(4000);
 				const getter = await Getter.build(url);
 				const html = getter.html;
