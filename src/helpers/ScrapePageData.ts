@@ -20,25 +20,25 @@ class ScrapePageData {
 
 	extractDataV1(): PageData {
 		const query = ".letterbox-expander .letterbox .sub-headline";
-		return this.execScrapeQuery(query);
+		return this.#execScrapeQuery(query);
 	}
 
 	extractDataV2(): PageData {
 		const query = "h3.college-sub-head-wrap";
-		return this.execScrapeQuery(query);
+		return this.#execScrapeQuery(query);
 	}
 
 	extractDataV3(): PageData {
 		const query = ".heroImg .body-1";
-		return this.execScrapeQuery(query);
+		return this.#execScrapeQuery(query);
 	}
 
 	extractDataV4(): PageData {
 		const query = ".MuiGrid-root.MuiGrid-container .MuiGrid-root.MuiGrid-item [role='dialog'] [data-testid='sub-text']";
-		return this.execScrapeQuery(query);
+		return this.#execScrapeQuery(query);
 	}
 
-	execScrapeQuery(query: string): PageData {
+	#execScrapeQuery(query: string): PageData {
 		const $ = cheerio.load(this.#html);
 		//return numbers by ',' or '.'
 		const regex = /(\d[\d.|,]*)/g;
