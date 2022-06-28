@@ -8,11 +8,10 @@ import MergeData from "./types/MergeData";
 import ArrayExtended from "./utils/ArrayExtended";
 import Save from "./utils/Save";
 import Environment from "./config/Environment";
-import path from "path";
 import SaveType from "./types/SaveType";
 
 const main = async () => {
-	const dir = path.resolve(__dirname, "../public");
+	console.info(`CSV: ${Environment.PUBLIC_DIR}`);
 	const generateUri = new GenerateUri(Environment.URL);
 	const offerLinks = generateUri.getOfferLinks();
 	let allData = [] as MergeData[];
@@ -35,11 +34,11 @@ const main = async () => {
 					const data = scrape.getMergeData();
 					allData = allData.concat(data);
 					const csv = ArrayExtended.jsonToCsv(allData);
-					const saveType: SaveType = {
+					const saveType = {
 						data: csv,
 						name: "offers",
-						dir
-					};
+						dir: Environment.PUBLIC_DIR
+					} as SaveType;
 					Save.toCsv(saveType);
 					console.info("CSV Actualizado");
 				} else console.error(`CANT EXTRACT: ${url}`);
