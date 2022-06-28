@@ -11,7 +11,6 @@ import Environment from "./config/Environment";
 import SaveType from "./types/SaveType";
 
 const main = async () => {
-	console.info(`CSV: ${Environment.PUBLIC_DIR}`);
 	const generateUri = new GenerateUri(Environment.URL);
 	const offerLinks = generateUri.getOfferLinks();
 	let allData = [] as MergeData[];
@@ -37,7 +36,7 @@ const main = async () => {
 					const saveType = {
 						data: csv,
 						name: "offers",
-						dir: Environment.PUBLIC_DIR
+						dir: Environment.OUTPUT_DIR
 					} as SaveType;
 					Save.toCsv(saveType);
 					console.info("CSV Actualizado");
