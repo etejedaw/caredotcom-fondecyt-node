@@ -2,5 +2,7 @@ version: "3"
 services:
   node-app:
     build: .
+    environment:
+      - DATA_TYPES_EXTRACTION=offer
     volumes:
       - ./output:/app/dist/src/output
