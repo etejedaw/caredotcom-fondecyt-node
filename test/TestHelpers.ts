@@ -3,7 +3,6 @@ import Wayback from "../src/helpers/Wayback";
 import Getter from "../src/helpers/Getter";
 import Save from "../src/utils/Save";
 import fs from "fs";
-import path from "path";
 import SaveType from "../src/types/SaveType";
 
 class TestHelpers {

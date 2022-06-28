@@ -8,7 +8,7 @@ describe("GenerateUri", () => {
 	const localAreasLength = Environment.LOCAL_AREAS.length;
 
 	describe("getOfferLinks", () => {
-		it("should return a list of links", () => {
+		it("should return a list of offer links", () => {
 			const offerLinks = generateUri.getOfferLinks();
 			const offerLinksLength = offerLinks.length;
 			const realOffersLength = Environment.OFFERS.length;
@@ -18,7 +18,7 @@ describe("GenerateUri", () => {
 	});
 
 	describe("getJobsLinks", () => {
-		it("should return a list of links", () => {
+		it("should return a list of jobs links", () => {
 			const jobsLinks = generateUri.getJobsLinks();
 			const jobsLinksLength = jobsLinks.length;
 			const realJobsLength = Environment.JOBS.length;

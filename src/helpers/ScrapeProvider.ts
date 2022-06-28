@@ -17,6 +17,7 @@ class ScrapeProvider {
 		if(ArrayExtended.isEmpty(extract)) extract = this.extractDataV2();
 		if(ArrayExtended.isEmpty(extract)) extract = this.extractDataV3();
 		if(ArrayExtended.isEmpty(extract)) extract = this.extractDataV4();
+		if(ArrayExtended.isEmpty(extract)) return [] as Provider[];
 		return extract;
 	}
 

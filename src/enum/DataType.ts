@@ -1,6 +1,7 @@
 enum DataType {
     OFFER = "offer",
-    JOB = "job"
+    JOB = "job",
+    NONE = "none"
 }
 
 export default DataType;

@@ -5,6 +5,7 @@ import ExtraData from "../interfaces/ExtraData";
 import Data from "../types/Data";
 import MergeData from "../types/MergeData";
 import ScrapePageData from "./ScrapePageData";
+import ArrayExtended from "../utils/ArrayExtended";
 
 class Scrape {
 	readonly #html: string;
@@ -19,13 +20,16 @@ class Scrape {
 		const provider = this.getProviders();
 		const pageData = this.getPageData();
 		const extraData = this.getExtraData();
-		return {provider, pageData, extraData};
+		const data = {provider, pageData, extraData};
+		if(ArrayExtended.isEmpty(provider)) return {} as Data;
+		return data;
 	}
 
 	getMergeData(): MergeData[] {
 		const providers = this.getProviders();
 		const pageData = this.getPageData();
 		const extraData = this.getExtraData();
+		if(ArrayExtended.isEmpty(providers)) return [] as MergeData[];
 		return providers.map(provider => Object.assign(provider, pageData, extraData));
 	}
 
@@ -42,6 +46,7 @@ class Scrape {
 	getExtraData(): ExtraData {
 		return this.#extraData;
 	}
+
 }
 
 export default Scrape;

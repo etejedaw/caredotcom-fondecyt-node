@@ -8,10 +8,17 @@ describe("Getter", () => {
 		expect(html).toBe(undefined);
 	});
 
-	it("should return an undefined html if the page to scrape has an error to get", async() => {
+	it("should return an undefined html if the page to scrape has an error to get", async () => {
 		const uri = "https://web.archive.org/web/20150530094157/https://www.care.com/nanny-jobs/chicago-il";
 		const getter = await Getter.build(uri);
 		const html = getter.html;
 		expect(html).toBe(undefined);
+	});
+
+	it("should return an html string if the page exists", async () => {
+		const uri = "http://www.google.cl";
+		const getter = await Getter.build(uri);
+		const html = getter.html;
+		expect(typeof html).toBe("string");
 	});
 });
