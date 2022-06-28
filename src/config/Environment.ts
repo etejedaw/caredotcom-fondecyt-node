@@ -1,5 +1,6 @@
 import Load from "../utils/Load";
 import path from "path";
+import DataType from "../enum/DataType";
 
 class Environment {
 
@@ -34,6 +35,10 @@ class Environment {
 
 	static get INPUT_DIR(): string {
 		return path.resolve(__dirname, "../../../src/public");
+	}
+
+	static get DATA_TYPE(): DataType {
+		return DataType.OFFER;
 	}
 
 }
