@@ -34,11 +34,11 @@ describe("Empty ScrapeOffers", () => {
 	});
 
 	describe("getPageData()", () => {
-		it("should return 'No OfferData' in the objects values if html is empty", () => {
+		it("should return 'No Data' in the objects values if html is empty", () => {
 			const scrape = new ScrapeOffers(html, extraData);
 			const data = scrape.getPageData();
-			expect(data.providers).toBe("No OfferData");
-			expect(data.average).toBe("No OfferData");
+			expect(data.providers).toBe("No Data");
+			expect(data.average).toBe("No Data");
 		});
 	});
 });
