@@ -1,7 +1,7 @@
 import ExtraData from "../../src/interfaces/ExtraData";
-import Scrape from "../../src/helpers/Scrape";
+import ScrapeOffers from "../../src/helpers/ScrapeOffers";
 
-describe("Empty Scrape", () => {
+describe("Empty ScrapeOffers", () => {
 	const html = "";
 	const extraData = {
 		localArea: "new-york-ny",
@@ -11,7 +11,7 @@ describe("Empty Scrape", () => {
 
 	describe("getData()", () => {
 		it("should return an empty object if html is empty", () => {
-			const scrape = new Scrape(html, extraData);
+			const scrape = new ScrapeOffers(html, extraData);
 			const data = scrape.getData();
 			expect(data).toEqual({});
 		});
@@ -19,7 +19,7 @@ describe("Empty Scrape", () => {
 
 	describe("getMergeData()", () => {
 		it("should return an empty array if html is empty", () => {
-			const scrape = new Scrape(html, extraData);
+			const scrape = new ScrapeOffers(html, extraData);
 			const data = scrape.getMergeData();
 			expect(data).toEqual([]);
 		});
@@ -27,18 +27,18 @@ describe("Empty Scrape", () => {
 
 	describe("getProviders()", () => {
 		it("should return an empty array if html is empty", () => {
-			const scrape = new Scrape(html, extraData);
+			const scrape = new ScrapeOffers(html, extraData);
 			const data = scrape.getProviders();
 			expect(data).toEqual([]);
 		});
 	});
 
 	describe("getPageData()", () => {
-		it("should return 'No Data' in the objects values if html is empty", () => {
-			const scrape = new Scrape(html, extraData);
+		it("should return 'No OfferData' in the objects values if html is empty", () => {
+			const scrape = new ScrapeOffers(html, extraData);
 			const data = scrape.getPageData();
-			expect(data.providers).toBe("No Data");
-			expect(data.average).toBe("No Data");
+			expect(data.providers).toBe("No OfferData");
+			expect(data.average).toBe("No OfferData");
 		});
 	});
 });

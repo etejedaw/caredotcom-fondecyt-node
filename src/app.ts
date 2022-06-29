@@ -1,16 +1,16 @@
 import DataType from "./enum/DataType";
-import GetData from "./helpers/GetData";
+import Scrape from "./helpers/Scrape";
 import Environment from "./config/Environment";
 
 const main = async () => {
 	switch (Environment.DATA_TYPE) {
 		case DataType.JOB: {
-			await GetData.initJobs();
+			await Scrape.initJobs();
 			console.info("Jobs Extraction Successfully");
 			break;
 		}
 		case DataType.OFFER: {
-			await GetData.initOffers();
+			await Scrape.initOffers();
 			console.info("Offers Extraction Successfully");
 			break;
 		}

@@ -1,8 +1,8 @@
-interface Provider {
+interface OfferProvider {
     name: string;
     priceRank: string;
     experience: string;
     age: string;
 }
 
-export default Provider;
+export default OfferProvider;

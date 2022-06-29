@@ -1,15 +1,15 @@
-import PageData from "../interfaces/PageData";
+import OfferPageData from "../interfaces/OfferPageData";
 import cheerio from "cheerio";
 import ObjectExtended from "../utils/ObjectExtended";
 
-class ScrapePageData {
+class ScrapeOfferPageData {
 	readonly #html: string;
 
 	constructor(html: string) {
 		this.#html = html;
 	}
 
-	extract(): PageData {
+	extract(): OfferPageData {
 		let extract = this.extractDataV1();
 		if(ObjectExtended.isEmpty(extract)) extract = this.extractDataV2();
 		if(ObjectExtended.isEmpty(extract)) extract = this.extractDataV3();
@@ -18,52 +18,52 @@ class ScrapePageData {
 		return this.#sanitizeNaN(extract);
 	}
 
-	extractDataV1(): PageData {
+	extractDataV1(): OfferPageData {
 		const query = ".letterbox-expander .letterbox .sub-headline";
 		return this.#execScrapeQuery(query);
 	}
 
-	extractDataV2(): PageData {
+	extractDataV2(): OfferPageData {
 		const query = "h3.college-sub-head-wrap";
 		return this.#execScrapeQuery(query);
 	}
 
-	extractDataV3(): PageData {
+	extractDataV3(): OfferPageData {
 		const query = ".heroImg .body-1";
 		return this.#execScrapeQuery(query);
 	}
 
-	extractDataV4(): PageData {
+	extractDataV4(): OfferPageData {
 		const query = ".MuiGrid-root.MuiGrid-container .MuiGrid-root.MuiGrid-item [role='dialog'] [data-testid='sub-text']";
 		return this.#execScrapeQuery(query);
 	}
 
-	#execScrapeQuery(query: string): PageData {
+	#execScrapeQuery(query: string): OfferPageData {
 		const $ = cheerio.load(this.#html);
 		//return numbers by ',' or '.'
 		const regex = /(\d[\d.|,]*)/g;
 		const data = $(query).text();
 		const pageData = data.match(regex);
-		if(!pageData) return {} as PageData;
+		if(!pageData) return {} as OfferPageData;
 		const providersTemp = pageData[0].replace(",", "");
 		const providers = parseInt(providersTemp);
 		const average = parseFloat(pageData[1]);
 		return {providers, average};
 	}
 
-	#fillNoData(): PageData {
-		const providers = "No Data";
-		const average = "No Data";
+	#fillNoData(): OfferPageData {
+		const providers = "No OfferData";
+		const average = "No OfferData";
 		return {providers, average};
 	}
 
-	#sanitizeNaN(pageData: PageData): PageData {
+	#sanitizeNaN(pageData: OfferPageData): OfferPageData {
 		let {providers, average} = {...pageData};
-		if(String(providers) === "NaN") providers = "No Data";
-		if(String(average) === "NaN") average = "No Data";
+		if(String(providers) === "NaN") providers = "No OfferData";
+		if(String(average) === "NaN") average = "No OfferData";
 		return {providers, average};
 	}
 
 }
 
-export default ScrapePageData;
+export default ScrapeOfferPageData;
