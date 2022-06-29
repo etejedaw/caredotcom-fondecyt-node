@@ -1,6 +1,5 @@
 import GenerateUri from "./GenerateUri";
 import Environment from "../config/Environment";
-import MergeOfferData from "../types/MergeOfferData";
 import Wayback from "./Wayback";
 import ExtraData from "../interfaces/ExtraData";
 import Sleep from "../utils/Sleep";
@@ -9,12 +8,15 @@ import ScrapeOffers from "./ScrapeOffers";
 import ArrayExtended from "../utils/ArrayExtended";
 import SaveType from "../types/SaveType";
 import Save from "../utils/Save";
+import MergeData from "../types/MergeData";
+import OfferProvider from "../interfaces/OfferProvider";
+import OfferPageData from "../interfaces/OfferPageData";
 
 class Scrape {
 	static async initOffers() {
 		const generateUri = new GenerateUri(Environment.URL);
 		const offerLinks = generateUri.getOfferLinks();
-		let allData = [] as MergeOfferData[];
+		let allData = [] as MergeData<OfferProvider, OfferPageData>[];
 		for (const offer of offerLinks) {
 			const uri = offer.uri;
 			const localArea = offer.localArea;
@@ -40,7 +42,7 @@ class Scrape {
 							dir: Environment.OUTPUT_DIR
 						} as SaveType;
 						Save.toCsv(saveType);
-						console.info("CSV Actualizado");
+						console.info("CSV Updated");
 					} else console.error(`CANT EXTRACT: ${url}`);
 				}
 			}
