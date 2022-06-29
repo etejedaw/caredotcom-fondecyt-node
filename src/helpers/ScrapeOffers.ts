@@ -2,10 +2,10 @@ import ScrapeOfferProvider from "./ScrapeOfferProvider";
 import OfferProvider from "../interfaces/OfferProvider";
 import OfferPageData from "../interfaces/OfferPageData";
 import ExtraData from "../interfaces/ExtraData";
-import OfferData from "../types/OfferData";
-import MergeOfferData from "../types/MergeOfferData";
+import Data from "../types/Data";
 import ScrapeOfferPageData from "./ScrapeOfferPageData";
 import ArrayExtended from "../utils/ArrayExtended";
+import MergeData from "../types/MergeData";
 
 class ScrapeOffers {
 	readonly #html: string;
@@ -16,20 +16,20 @@ class ScrapeOffers {
 		this.#extraData = extraData;
 	}
 
-	getData(): OfferData {
+	getData(): Data<OfferProvider, OfferPageData> {
 		const provider = this.getProviders();
 		const pageData = this.getPageData();
 		const extraData = this.getExtraData();
-		const data = {provider, pageData, extraData};
-		if(ArrayExtended.isEmpty(provider)) return {} as OfferData;
+		const data = {provider, pageData, extraData} as Data<OfferProvider, OfferPageData>;
+		if(ArrayExtended.isEmpty(provider)) return {} as Data<OfferProvider, OfferPageData>;
 		return data;
 	}
 
-	getMergeData(): MergeOfferData[] {
+	getMergeData(): MergeData<OfferProvider, OfferPageData>[] {
 		const providers = this.getProviders();
 		const pageData = this.getPageData();
 		const extraData = this.getExtraData();
-		if(ArrayExtended.isEmpty(providers)) return [] as MergeOfferData[];
+		if(ArrayExtended.isEmpty(providers)) return [] as MergeData<OfferProvider, OfferPageData>[];
 		return providers.map(provider => Object.assign(provider, pageData, extraData));
 	}
 
