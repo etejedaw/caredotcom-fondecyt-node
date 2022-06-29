@@ -1,6 +1,6 @@
 interface OfferPageData {
-    providers: number | "No OfferData";
-    average: number | "No OfferData";
+    providers: number | "No Data";
+    average: number | "No Data";
 }
 
 export default OfferPageData;

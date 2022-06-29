@@ -52,15 +52,15 @@ class ScrapeOfferPageData {
 	}
 
 	#fillNoData(): OfferPageData {
-		const providers = "No OfferData";
-		const average = "No OfferData";
+		const providers = "No Data";
+		const average = "No Data";
 		return {providers, average};
 	}
 
 	#sanitizeNaN(pageData: OfferPageData): OfferPageData {
 		let {providers, average} = {...pageData};
-		if(String(providers) === "NaN") providers = "No OfferData";
-		if(String(average) === "NaN") average = "No OfferData";
+		if(String(providers) === "NaN") providers = "No Data";
+		if(String(average) === "NaN") average = "No Data";
 		return {providers, average};
 	}
 
