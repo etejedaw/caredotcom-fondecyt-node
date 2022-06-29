@@ -4,6 +4,8 @@ import Getter from "../src/helpers/Getter";
 import Save from "../src/utils/Save";
 import fs from "fs";
 import SaveType from "../src/types/SaveType";
+import DataType from "../src/enum/DataType";
+import UriData from "../src/interfaces/UriData";
 
 class TestHelpers {
 
@@ -20,12 +22,24 @@ class TestHelpers {
 		fs.mkdirSync(publicDir);
 	}
 
-	static async downloadHtml(publicDir: string) {
+	static async downloadHtml(publicDir: string, dataType: DataType) {
 		const URL = "https://www.care.com";
 		let counter = 0;
 		const generateUri = new GenerateUri(URL);
-		const offerList = generateUri.getOfferLinks();
-		for(const {uri} of offerList) {
+		let list = [] as UriData[];
+		switch (dataType) {
+			case DataType.OFFER: {
+				list = generateUri.getOfferLinks();
+				break;
+			}
+			case DataType.JOB: {
+				list = generateUri.getJobsLinks();
+				break;
+			}
+			default: throw new Error("Invalid Option");
+
+		}
+		for(const {uri} of list) {
 			const wayback = new Wayback(uri);
 			const list = await wayback.getList();
 			if(list.length !== 0) {
