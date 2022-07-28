@@ -1,6 +1,7 @@
 import JobPageData from "../interfaces/JobPageData";
 import ObjectExtended from "../utils/ObjectExtended";
 import cheerio from "cheerio";
+import OfferPageData from "../interfaces/OfferPageData";
 
 class ScrapeJobPageData {
 	readonly #html: string;
@@ -16,13 +17,19 @@ class ScrapeJobPageData {
 	}
 
 	extractDataV1(): JobPageData {
-		const query = "";
+		const query = ".container-fluid .heroImg .col-xs-12.text-center.intro .body-1.hero-subhead";
 		return this.#execScrapeQuery(query);
 	}
 
 	#execScrapeQuery(query: string): JobPageData {
 		const $ = cheerio.load(this.#html);
-		return {} as JobPageData;
+		const regex = /(\d[\d.|,]*)/g;
+		const data = $(query).text();
+		const pageData = data.match(regex);
+		if(!pageData) return {} as JobPageData;
+		const providersTemp = pageData[0].replace(",", "");
+		const providers = parseInt(providersTemp);
+		return {providers} as JobPageData;
 	}
 
 	#fillNoData(): JobPageData {
@@ -32,7 +39,7 @@ class ScrapeJobPageData {
 
 	#sanitizeNaN(pageData: JobPageData): JobPageData {
 		let {providers} = {...pageData};
-		if(String(providers) === "NaN") providers = "No Data";
+		if(String(providers) === "NaN") providers = "No Data";;
 		return {providers};
 	}
 }
