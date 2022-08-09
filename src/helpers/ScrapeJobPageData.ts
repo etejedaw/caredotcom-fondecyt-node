@@ -13,6 +13,7 @@ class ScrapeJobPageData {
 	extract(): JobPageData {
 		let extract = this.extractDataV1();
 		if(ObjectExtended.isEmpty(extract)) extract = this.extractDataV2();
+		if(ObjectExtended.isEmpty(extract)) extract = this.extractDataV3();
 		if(ObjectExtended.isEmpty(extract)) extract = this.#fillNoData();
 		return this.#sanitizeNaN(extract);
 	}
@@ -24,6 +25,11 @@ class ScrapeJobPageData {
 
 	extractDataV2(): JobPageData {
 		const query = ".body-content.visitor-seg .row .col-xs-12 .letterbox-expander .letterbox .sub-headline";
+		return this.#execScrapeQuery(query);
+	}
+
+	extractDataV3(): JobPageData {
+		const query = ".college-sub-head-wrap .college-sub-head";
 		return this.#execScrapeQuery(query);
 	}
 
