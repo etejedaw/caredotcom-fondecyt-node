@@ -41,6 +41,7 @@ class ScrapeJobPageData {
 		if(!pageData) return {} as JobPageData;
 		const providersTemp = pageData[0].replace(",", "");
 		const providers = parseInt(providersTemp);
+		if(providers === 0) return {} as JobPageData;
 		return {providers} as JobPageData;
 	}
 
