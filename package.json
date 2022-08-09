@@ -1,0 +1,47 @@
+{
+  "name": "fondecyt",
+  "version": "0.0.0",
+  "description": "From automation to home production via the gig economy: a novel gender-based análisis",
+  "main": "app.js",
+  "scripts": {
+    "start": "npx tsc && node dist/src/app.js",
+    "build": "npx tsc -b",
+    "dev": "npx nodemon -w './**/*.ts' --exec 'ts-node' src/app.ts",
+    "lint": "npx eslint . --ext .ts",
+    "lint:fix": "npx eslint . --ext .ts --fix",
+    "test": "npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etejedaw/FONDECYT.git"
+  },
+  "author": "Esteban Tejeda",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/etejedaw/FONDECYT/issues"
+  },
+  "homepage": "https://github.com/etejedaw/FONDECYT#readme",
+  "devDependencies": {
+    "@types/cheerio": "^0.22.31",
+    "@types/jest": "^27.4.1",
+    "@types/json2csv": "^5.0.3",
+    "@types/node-fetch": "^2.6.1",
+    "@types/request": "^2.48.8",
+    "@types/request-promise": "^4.1.48",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "eslint": "^8.12.0",
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "ts-jest": "^27.1.4",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
+    "json2csv": "^5.0.7",
+    "node-fetch": "^2.6.7",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  }
+}
