@@ -12,12 +12,18 @@ class ScrapeJobPageData {
 
 	extract(): JobPageData {
 		let extract = this.extractDataV1();
+		if(ObjectExtended.isEmpty(extract)) extract = this.extractDataV2();
 		if(ObjectExtended.isEmpty(extract)) extract = this.#fillNoData();
 		return this.#sanitizeNaN(extract);
 	}
 
 	extractDataV1(): JobPageData {
 		const query = ".container-fluid .heroImg .col-xs-12.text-center.intro .body-1.hero-subhead";
+		return this.#execScrapeQuery(query);
+	}
+
+	extractDataV2(): JobPageData {
+		const query = ".body-content.visitor-seg .row .col-xs-12 .letterbox-expander .letterbox .sub-headline";
 		return this.#execScrapeQuery(query);
 	}
 
