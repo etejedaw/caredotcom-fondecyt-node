@@ -37,7 +37,6 @@ class TestHelpers {
 				break;
 			}
 			default: throw new Error("Invalid Option");
-
 		}
 		for(const {uri} of list) {
 			const wayback = new Wayback(uri);
