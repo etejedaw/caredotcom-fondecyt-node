@@ -1,8 +1,6 @@
-import Provider from "../interfaces/Provider";
-import PageData from "../interfaces/PageData";
 import ExtraData from "../interfaces/ExtraData";
 
-type Data = {
+type Data<Provider, PageData> = {
     provider: Provider[];
     pageData: PageData;
     extraData: ExtraData;

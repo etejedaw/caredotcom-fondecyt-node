@@ -1,6 +1,6 @@
-interface PageData {
+interface OfferPageData {
     providers: number | "No Data";
     average: number | "No Data";
 }
 
-export default PageData;
+export default OfferPageData;
