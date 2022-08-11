@@ -1,7 +1,6 @@
 import JobPageData from "../interfaces/JobPageData";
 import ObjectExtended from "../utils/ObjectExtended";
 import cheerio from "cheerio";
-import OfferPageData from "../interfaces/OfferPageData";
 
 class ScrapeJobPageData {
 	readonly #html: string;
@@ -52,7 +51,7 @@ class ScrapeJobPageData {
 
 	#sanitizeNaN(pageData: JobPageData): JobPageData {
 		let {providers} = {...pageData};
-		if(String(providers) === "NaN") providers = "No Data";;
+		if(String(providers) === "NaN") providers = "No Data";
 		return {providers};
 	}
 }
