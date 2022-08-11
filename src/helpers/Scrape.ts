@@ -30,7 +30,7 @@ class Scrape {
 				for (const link of list) {
 					const url = link.uri;
 					const date = link.datetime;
-					const extraData = {localArea, date, information} as ExtraData;
+					const extraData = {localArea, date, information, url} as ExtraData;
 					await Sleep.sleep(4000);
 					const getter = await Getter.build(url);
 					const html = getter.html;
@@ -67,7 +67,7 @@ class Scrape {
 				for (const link of list) {
 					const url = link.uri;
 					const date = link.datetime;
-					const extraData = {localArea, date, information} as ExtraData;
+					const extraData = {localArea, date, information, url} as ExtraData;
 					await Sleep.sleep(4000);
 					const getter = await Getter.build(url);
 					const html = getter.html;
