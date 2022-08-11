@@ -20,9 +20,8 @@ class ScrapeOffers {
 		const provider = this.getProviders();
 		const pageData = this.getPageData();
 		const extraData = this.getExtraData();
-		const data = {provider, pageData, extraData} as Data<OfferProvider, OfferPageData>;
 		if(ArrayExtended.isEmpty(provider)) return {} as Data<OfferProvider, OfferPageData>;
-		return data;
+		return {provider, pageData, extraData} as Data<OfferProvider, OfferPageData>;
 	}
 
 	getMergeData(): MergeData<OfferProvider, OfferPageData>[] {
