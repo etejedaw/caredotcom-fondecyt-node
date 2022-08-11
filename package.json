@@ -6,10 +6,11 @@
   "scripts": {
     "start": "npx tsc && node dist/src/app.js",
     "build": "npx tsc -b",
-    "dev": "npx nodemon -w './**/*.ts' --exec 'ts-node' src/app.ts",
-    "lint": "npx eslint . --ext .ts",
-    "lint:fix": "npx eslint . --ext .ts --fix",
-    "test": "npx jest"
+    "dev": "nodemon -w './**/*.ts' --exec 'ts-node' src/app.ts",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",

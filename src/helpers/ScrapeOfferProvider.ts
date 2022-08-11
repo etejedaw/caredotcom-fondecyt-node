@@ -58,7 +58,9 @@ class ScrapeOfferProvider {
 			const priceRank = body[0].trim();
 			const experience = body[1].trim();
 			const age = body[2].trim();
-			return {name, priceRank, experience, age} as OfferProvider;
+			const data = {name, priceRank, experience, age} as OfferProvider;
+			if(ObjectExtended.hasEmptyValues(data)) return;
+			return data;
 		}).get();
 	}
 
@@ -73,7 +75,9 @@ class ScrapeOfferProvider {
 			const priceRank = body[0].trim();
 			const experience = body[1].trim();
 			const age = body[2].trim();
-			return {name, priceRank, experience, age} as OfferProvider;
+			const data = {name, priceRank, experience, age} as OfferProvider;
+			if(ObjectExtended.hasEmptyValues(data)) return;
+			return data;
 		}).get() as OfferProvider[];
 		return ArrayExtended.cleanObjectRepeats(data);
 	}
