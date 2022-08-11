@@ -1,6 +1,5 @@
 import Getter from "../../src/helpers/Getter";
 import ScrapeJobProvider from "../../src/helpers/ScrapeJobProvider";
-import ObjectExtended from "../../src/utils/ObjectExtended";
 
 test("Should return an empty object if any data of the page is empty", async () => {
 	const URL = "https://web.archive.org/web/20171226001059/https://www.care.com/child-care-jobs/gilbert-az";
