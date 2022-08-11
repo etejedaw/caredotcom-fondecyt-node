@@ -38,7 +38,7 @@ class Environment {
 	}
 
 	static get DATA_TYPE(): DataType {
-		const extraction = process.env.DATA_TYPES_EXTRACTION || DataType.JOB;
+		const extraction = process.env.DATA_TYPES_EXTRACTION || DataType.NONE;
 		switch (extraction) {
 			case "job": return DataType.JOB;
 			case "offer": return DataType.OFFER;
