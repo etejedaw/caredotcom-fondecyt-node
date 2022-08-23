@@ -16,7 +16,7 @@ const main = async () => {
 			console.info("Offers Extraction Successfully");
 			break;
 		}
-		default: throw new Error("Invalid Option");
+		default: throw new Error("Invalid Option. Must be 'offer' or 'job'");
 	}
 
 };
