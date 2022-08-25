@@ -9,6 +9,12 @@ import Sleep from "../utils/Sleep";
 import Getter from "./Getter";
 import ScrapeOffers from "./ScrapeOffers";
 import fs from "fs";
+import ObjectExtended from "../utils/ObjectExtended";
+import MergeData from "../types/MergeData";
+import OfferProvider from "../interfaces/OfferProvider";
+import OfferPageData from "../interfaces/OfferPageData";
+import JobProvider from "../interfaces/JobProvider";
+import JobPageData from "../interfaces/JobPageData";
 
 class ScrapeHelper {
 	static getLinks(dataType: DataType) {
@@ -52,7 +58,38 @@ class ScrapeHelper {
 		const name = `${dataType}-${information}.csv`;
 		const dirName = `${dir}/${name}`;
 		if (!fs.existsSync(dir)) fs.mkdirSync(dir);
-		if (!fs.existsSync(dirName)) fs.writeFileSync(dirName, "");
+		if (!fs.existsSync(dirName)) {
+			const header = this.generateHeader(dataType);
+			fs.writeFileSync(dirName, header);
+		}
+	}
+
+	static generateHeader(dataType: DataType): string {
+		switch (dataType) {
+			case DataType.OFFER: return ObjectExtended.toCsv({
+				name: null,
+				priceRank: null,
+				experience: null,
+				age: null,
+				providers: null,
+				average: null,
+				url: null,
+				date: null,
+				localArea: null,
+				information: null,
+			} as unknown as MergeData<OfferProvider, OfferPageData>).concat("\n");
+			case DataType.JOB: return ObjectExtended.toCsv({
+				title: null,
+				workSchedule: null,
+				priceRank: null,
+				providers: null,
+				localArea: null,
+				date: null,
+				information: null,
+				url: null
+			} as unknown as MergeData<JobProvider, JobPageData>).concat("\n");
+			default: throw new Error("Bad option");
+		}
 	}
 
 	static generateDir(dataType: DataType, information: string): string {
@@ -60,7 +97,11 @@ class ScrapeHelper {
 	}
 
 	static addToCsv(dir: string, data: string) {
-		fs.appendFileSync(dir, data.concat("\n"));
+		const line = data.split("\n");
+		line.splice(0,1);
+		const newData = line.join("\n");
+		if (newData.length === 0) return;
+		fs.appendFileSync(dir, newData.concat("\n"));
 	}
 }
 

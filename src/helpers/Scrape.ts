@@ -26,7 +26,9 @@ class Scrape {
 					const html = await ScrapeHelper.getHtml(link.uri);
 					if (html) {
 						const data = ScrapeHelper.scrapeData(html, extraData);
-						const csv = ArrayExtended.jsonToCsv(data);
+						let csv: string;
+						if(data.length === 0) csv = "";
+						else csv = ArrayExtended.jsonToCsv(data);
 						const dir = ScrapeHelper.generateDir(DataType.OFFER, offer.information);
 						ScrapeHelper.addToCsv(dir, csv);
 						console.info("CSV Updated");
