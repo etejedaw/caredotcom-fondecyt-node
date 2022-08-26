@@ -15,6 +15,7 @@ import OfferProvider from "../interfaces/OfferProvider";
 import OfferPageData from "../interfaces/OfferPageData";
 import JobProvider from "../interfaces/JobProvider";
 import JobPageData from "../interfaces/JobPageData";
+import ScrapeJobs from "./ScrapeJobs";
 
 class ScrapeHelper {
 	static getLinks(dataType: DataType) {
@@ -49,9 +50,18 @@ class ScrapeHelper {
 		return getter.html;
 	}
 
-	static scrapeData(html: string, extraData: ExtraData) {
-		const scrape = new ScrapeOffers(html, extraData);
-		return scrape.getMergeData();
+	static scrapeData(html: string, extraData: ExtraData, dataType: DataType) {
+		switch (dataType) {
+		  case DataType.JOB: {
+			const scrape = new ScrapeJobs(html, extraData);
+			return scrape.getMergeData();
+		  }
+		  case DataType.OFFER: {
+			const scrape = new ScrapeOffers(html, extraData);
+			return scrape.getMergeData();
+		  }
+		  default: throw new Error("Invalid Option");
+		}
 	}
 
 	static createCsv(dataType: DataType, information: string, dir: string) {
@@ -93,7 +103,7 @@ class ScrapeHelper {
 	}
 
 	static generateDir(dataType: DataType, information: string): string {
-		return `${Environment.OUTPUT_DIR}/${DataType.OFFER}-${information}.csv`;
+		return `${Environment.OUTPUT_DIR}/${dataType}-${information}.csv`;
 	}
 
 	static addToCsv(dir: string, data: string) {

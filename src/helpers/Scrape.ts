@@ -1,16 +1,5 @@
-import GenerateUri from "./GenerateUri";
 import Environment from "../config/Environment";
-import Wayback from "./Wayback";
-import ExtraData from "../interfaces/ExtraData";
-import Sleep from "../utils/Sleep";
-import Getter from "./Getter";
 import ArrayExtended from "../utils/ArrayExtended";
-import SaveType from "../types/SaveType";
-import Save from "../utils/Save";
-import MergeData from "../types/MergeData";
-import ScrapeJobs from "./ScrapeJobs";
-import JobProvider from "../interfaces/JobProvider";
-import JobPageData from "../interfaces/JobPageData";
 import DataType from "../enum/DataType";
 import ScrapeHelper from "./ScrapeHelper";
 
@@ -25,7 +14,7 @@ class Scrape {
 					const extraData = ScrapeHelper.generateExtraData(offer, link);
 					const html = await ScrapeHelper.getHtml(link.uri);
 					if (html) {
-						const data = ScrapeHelper.scrapeData(html, extraData);
+						const data = ScrapeHelper.scrapeData(html, extraData, DataType.OFFER);
 						let csv: string;
 						if(data.length === 0) csv = "";
 						else csv = ArrayExtended.jsonToCsv(data);
@@ -41,40 +30,27 @@ class Scrape {
 	}
 
 	static async initJobs() {
-		const generateUri = new GenerateUri(Environment.URL);
-		const jobLinks = generateUri.getJobsLinks();
-		let allData = [] as MergeData<JobProvider, JobPageData>[];
+		const jobLinks = ScrapeHelper.getLinks(DataType.JOB);
 		for (const job of jobLinks) {
-			const uri = job.uri;
-			const localArea = job.localArea;
-			const information = job.information;
-			const wayback = new Wayback(uri);
-			const list = await wayback.getList();
+			const list = await ScrapeHelper.getWaybackList(job.uri);
+			ScrapeHelper.createCsv(DataType.JOB, job.information, Environment.OUTPUT_DIR);
 			if (list.length !== 0) {
 				for (const link of list) {
-					const url = link.uri;
-					const date = link.datetime;
-					const extraData = {localArea, date, information, url} as ExtraData;
-					await Sleep.sleep(4000);
-					const getter = await Getter.build(url);
-					const html = getter.html;
+					const extraData = ScrapeHelper.generateExtraData(job, link);
+					const html = await ScrapeHelper.getHtml(link.uri);
 					if(html) {
-						const scrape = new ScrapeJobs(html, extraData);
-						const data = scrape.getMergeData();
-						allData = allData.concat(data);
-						const csv = ArrayExtended.jsonToCsv(allData);
-						const saveType = {
-							data: csv,
-							name: "jobs",
-							dir: Environment.OUTPUT_DIR
-						} as SaveType;
-						Save.toCsv(saveType);
+						const data = ScrapeHelper.scrapeData(html, extraData, DataType.JOB);
+						let csv: string;
+						if(data.length === 0) csv = "";
+						else csv = ArrayExtended.jsonToCsv(data);
+						const dir = ScrapeHelper.generateDir(DataType.JOB, job.information);
+						ScrapeHelper.addToCsv(dir, csv);
 						console.info("CSV Updated");
 					}
-					else console.error(`CANT EXTRACT: ${url}`);
+					else console.error(`CANT EXTRACT: ${job.uri}`);
 				}
 			}
-			else console.error(`NOT FOUND: ${uri}`);
+			else console.error(`NOT FOUND: ${job.uri}`);
 		}
 	}
 
