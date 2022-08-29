@@ -1,6 +1,7 @@
 import JobProvider from "../interfaces/JobProvider";
 import ArrayExtended from "../utils/ArrayExtended";
 import cheerio from "cheerio";
+import ObjectExtended from "../utils/ObjectExtended";
 
 class ScrapeJobProvider {
 	readonly #html: string;
@@ -27,7 +28,9 @@ class ScrapeJobProvider {
 			if (!ArrayExtended.hasAllValues(body, this.#ARRAY_MAX_LENGTH)) return;
 			const workSchedule = body[0].trim();
 			const priceRank = body[1].trim();
-			return {title, workSchedule, priceRank} as JobProvider;
+			const data = {title, workSchedule, priceRank} as JobProvider;
+			if(ObjectExtended.hasEmptyValues(data)) return;
+			return data;
 		}).get();
 	}
 
@@ -37,7 +40,9 @@ class ScrapeJobProvider {
 			const title = $(elem).find(".profile-name .visible-sm").text().trim();
 			const workSchedule = $(elem).find(".col-xs-7.col-sm-3.text-block").text().trim();
 			const priceRank = $(elem).find(".col-xs-5.col-sm-2.text-block").text().trim();
-			return {title, workSchedule, priceRank} as JobProvider;
+			const data = {title, workSchedule, priceRank} as JobProvider;
+			if(ObjectExtended.hasEmptyValues(data)) return;
+			return data;
 		}).get();
 	}
 
@@ -47,7 +52,9 @@ class ScrapeJobProvider {
 			const title = $(elem).find(".job-title").text().trim();
 			const workSchedule = $(elem).find(".row.job-detail-info .col-xs-6.col-sm-6").text().trim();
 			const priceRank = $(elem).find(".row.job-detail-info .col-xs-5.col-sm-3").text().trim();
-			return {title, workSchedule, priceRank} as JobProvider;
+			const data = {title, workSchedule, priceRank} as JobProvider;
+			if(ObjectExtended.hasEmptyValues(data)) return;
+			return data;
 		}).get();
 	}
 }
