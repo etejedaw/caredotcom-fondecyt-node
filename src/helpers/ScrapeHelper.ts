@@ -71,6 +71,7 @@ class ScrapeHelper {
 		if (!fs.existsSync(dirName)) {
 			const header = this.generateHeader(dataType);
 			fs.writeFileSync(dirName, header);
+			console.info(`> ${name} CREATED`);
 		}
 	}
 
