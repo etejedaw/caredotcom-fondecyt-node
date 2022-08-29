@@ -4,7 +4,6 @@ import path from "path";
 import DataType from "../enum/DataType";
 
 class Environment {
-
 	static get LOCAL_AREAS(): Array<string> {
 		const dir = this.INPUT_DIR;
 		const data = Load.txt("local_areas", dir);
@@ -42,12 +41,14 @@ class Environment {
 		dotenv.config();
 		const extraction = process.env.DATA_TYPES_EXTRACTION;
 		switch (extraction) {
-			case "job": return DataType.JOB;
-			case "offer": return DataType.OFFER;
-			default: return DataType.NONE;
+			case "job":
+				return DataType.JOB;
+			case "offer":
+				return DataType.OFFER;
+			default:
+				throw new Error("Invalid Option. Must be 'offer' or 'job'");
 		}
 	}
-
 }
 
 export default Environment;

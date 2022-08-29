@@ -38,7 +38,7 @@ class TestHelpers {
 			}
 			default: throw new Error("Invalid Option");
 		}
-		for(const {uri} of list) {
+		for(const {uri, information} of list) {
 			const wayback = new Wayback(uri);
 			const list = await wayback.getList();
 			if(list.length !== 0) {
@@ -52,7 +52,8 @@ class TestHelpers {
 						const saveType: SaveType = {
 							data: html,
 							name: `page-${counterToFormat}`,
-							dir: publicDir
+							dir: publicDir,
+							information
 						};
 						Save.toHtml(saveType);
 						counter++;
