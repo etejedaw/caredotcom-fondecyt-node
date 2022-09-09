@@ -94,10 +94,10 @@ class ScrapeHelper {
 				workSchedule: null,
 				priceRank: null,
 				providers: null,
-				localArea: null,
+				url: null,
 				date: null,
+				localArea: null,
 				information: null,
-				url: null
 			} as unknown as MergeData<JobProvider, JobPageData>).concat("\n");
 			default: throw new Error("Bad option");
 		}
