@@ -7,7 +7,7 @@ Software dedicado a la extracción de millones de datos históricos almacenados 
 1. Clonar el repositorio.
 2. Copiar el archivo `.env.example` y pegarlo en la carpeta raiz con el nombre `.env`.
 3. Añadir el tipo de dato a extraer (offer o job) al lado del texto `DATA_TYPES_EXTRACTION=`. Ejemplo: `DATA_TYPES_EXTRACTION=offer`
-4. Ejecutar el programa de la forma que mejro convenga (Node o Docker). Dependiendo de la ejecución, la ruta del csv con la data extraída será distinto.
+4. Ejecutar el programa de la forma que mejor convenga (Node o Docker). Dependiendo de la ejecución, la ruta del csv con la data extraída será distinto.
 
 ### Node
 
@@ -21,7 +21,7 @@ output: `./dist/src/output`
 ### Docker
 
 ```
-docker-compose up
+docker compose up
 ```
 
 output: `./output/`
