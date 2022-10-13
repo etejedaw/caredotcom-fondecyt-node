@@ -1,4 +1,4 @@
-# Proyecto de extracción de datos para proyecto FONDECYT
+# Software de extracción de datos para proyecto FONDECYT
 
 ## From automation to home production via the gig economy: a novel gender-based análisis
 
