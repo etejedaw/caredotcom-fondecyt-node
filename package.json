@@ -1,6 +1,6 @@
 {
   "name": "fondecyt",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "From automation to home production via the gig economy: a novel gender-based análisis",
   "main": "app.js",
   "scripts": {
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/etejedaw/FONDECYT.git"
+    "url": "git+https://github.com/etejedaw/fondecyt-scrape-care.git"
   },
   "author": "Esteban Tejeda",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/etejedaw/FONDECYT/issues"
+    "url": "https://github.com/etejedaw/fondecyt-scrape-care/issues"
   },
-  "homepage": "https://github.com/etejedaw/FONDECYT#readme",
+  "homepage": "https://github.com/etejedaw/fondecyt-scrape-care#readme",
   "devDependencies": {
     "@types/cheerio": "^0.22.31",
     "@types/jest": "^27.4.1",
