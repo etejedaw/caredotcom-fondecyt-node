@@ -1,7 +1,6 @@
 import { Parser } from "json2csv";
 
 class ObjectExtended {
-
 	static hasAllValues(obj: object, length: number): boolean {
 		return Object.keys(obj).length === length;
 	}
@@ -16,8 +15,8 @@ class ObjectExtended {
 	}
 
 	static toCsv(data: object): string {
-	  const json2CsvParser = new Parser();
-	  return json2CsvParser.parse(data);
+		const json2CsvParser = new Parser();
+		return json2CsvParser.parse(data);
 	}
 }
 

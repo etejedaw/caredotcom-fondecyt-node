@@ -15,10 +15,7 @@ class Scrape {
 			);
 			if (list.length !== 0) {
 				for (const link of list) {
-					const extraData = ScrapeHelper.generateExtraData(
-						data,
-						link
-					);
+					const extraData = ScrapeHelper.generateExtraData(data, link);
 					const html = await ScrapeHelper.getHtml(link.uri);
 					if (html) {
 						const dataScraped = ScrapeHelper.scrapeData(
@@ -29,10 +26,7 @@ class Scrape {
 						let csv: string;
 						if (dataScraped.length === 0) csv = "";
 						else csv = ArrayExtended.jsonToCsv(dataScraped);
-						const dir = ScrapeHelper.generateDir(
-							dataType,
-							data.information
-						);
+						const dir = ScrapeHelper.generateDir(dataType, data.information);
 						ScrapeHelper.addToCsv(dir, csv);
 						console.info("CSV Updated");
 					} else console.error(`CANT EXTRACT: ${data.uri}`);

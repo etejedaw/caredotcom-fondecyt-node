@@ -20,16 +20,23 @@ class ScrapeOffers {
 		const provider = this.getProviders();
 		const pageData = this.getPageData();
 		const extraData = this.getExtraData();
-		if(ArrayExtended.isEmpty(provider)) return {} as Data<OfferProvider, OfferPageData>;
-		return {provider, pageData, extraData} as Data<OfferProvider, OfferPageData>;
+		if (ArrayExtended.isEmpty(provider))
+			return {} as Data<OfferProvider, OfferPageData>;
+		return { provider, pageData, extraData } as Data<
+			OfferProvider,
+			OfferPageData
+		>;
 	}
 
 	getMergeData(): MergeData<OfferProvider, OfferPageData>[] {
 		const providers = this.getProviders();
 		const pageData = this.getPageData();
 		const extraData = this.getExtraData();
-		if(ArrayExtended.isEmpty(providers)) return [] as MergeData<OfferProvider, OfferPageData>[];
-		return providers.map(provider => Object.assign(provider, pageData, extraData));
+		if (ArrayExtended.isEmpty(providers))
+			return [] as MergeData<OfferProvider, OfferPageData>[];
+		return providers.map(provider =>
+			Object.assign(provider, pageData, extraData)
+		);
 	}
 
 	getProviders(): OfferProvider[] {
@@ -45,7 +52,6 @@ class ScrapeOffers {
 	getExtraData(): ExtraData {
 		return this.#extraData;
 	}
-
 }
 
 export default ScrapeOffers;

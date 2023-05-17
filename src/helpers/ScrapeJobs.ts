@@ -20,16 +20,20 @@ class ScrapeJobs {
 		const provider = this.getProviders();
 		const pageData = this.getPageData();
 		const extraData = this.getExtraData();
-		if(ArrayExtended.isEmpty(provider)) return {} as Data<JobProvider, JobPageData>;
-		return {provider, pageData, extraData} as Data<JobProvider, JobPageData>;
+		if (ArrayExtended.isEmpty(provider))
+			return {} as Data<JobProvider, JobPageData>;
+		return { provider, pageData, extraData } as Data<JobProvider, JobPageData>;
 	}
 
 	getMergeData(): MergeData<JobProvider, JobPageData>[] {
 		const providers = this.getProviders();
 		const pageData = this.getPageData();
 		const extraData = this.getExtraData();
-		if(ArrayExtended.isEmpty(providers)) return [] as MergeData<JobProvider, JobPageData>[];
-		return providers.map(provider => Object.assign(provider, pageData, extraData));
+		if (ArrayExtended.isEmpty(providers))
+			return [] as MergeData<JobProvider, JobPageData>[];
+		return providers.map(provider =>
+			Object.assign(provider, pageData, extraData)
+		);
 	}
 
 	getProviders(): JobProvider[] {
@@ -45,7 +49,6 @@ class ScrapeJobs {
 	getExtraData(): ExtraData {
 		return this.#extraData;
 	}
-
 }
 
 export default ScrapeJobs;

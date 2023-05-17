@@ -52,15 +52,16 @@ class ScrapeHelper {
 
 	static scrapeData(html: string, extraData: ExtraData, dataType: DataType) {
 		switch (dataType) {
-		  case DataType.JOB: {
-			const scrape = new ScrapeJobs(html, extraData);
-			return scrape.getMergeData();
-		  }
-		  case DataType.OFFER: {
-			const scrape = new ScrapeOffers(html, extraData);
-			return scrape.getMergeData();
-		  }
-		  default: throw new Error("Invalid Option");
+			case DataType.JOB: {
+				const scrape = new ScrapeJobs(html, extraData);
+				return scrape.getMergeData();
+			}
+			case DataType.OFFER: {
+				const scrape = new ScrapeOffers(html, extraData);
+				return scrape.getMergeData();
+			}
+			default:
+				throw new Error("Invalid Option");
 		}
 	}
 
@@ -77,29 +78,32 @@ class ScrapeHelper {
 
 	static generateHeader(dataType: DataType): string {
 		switch (dataType) {
-			case DataType.OFFER: return ObjectExtended.toCsv({
-				name: null,
-				priceRank: null,
-				experience: null,
-				age: null,
-				providers: null,
-				average: null,
-				url: null,
-				date: null,
-				localArea: null,
-				information: null,
-			} as unknown as MergeData<OfferProvider, OfferPageData>).concat("\n");
-			case DataType.JOB: return ObjectExtended.toCsv({
-				title: null,
-				workSchedule: null,
-				priceRank: null,
-				providers: null,
-				url: null,
-				date: null,
-				localArea: null,
-				information: null,
-			} as unknown as MergeData<JobProvider, JobPageData>).concat("\n");
-			default: throw new Error("Bad option");
+			case DataType.OFFER:
+				return ObjectExtended.toCsv({
+					name: null,
+					priceRank: null,
+					experience: null,
+					age: null,
+					providers: null,
+					average: null,
+					url: null,
+					date: null,
+					localArea: null,
+					information: null
+				} as unknown as MergeData<OfferProvider, OfferPageData>).concat("\n");
+			case DataType.JOB:
+				return ObjectExtended.toCsv({
+					title: null,
+					workSchedule: null,
+					priceRank: null,
+					providers: null,
+					url: null,
+					date: null,
+					localArea: null,
+					information: null
+				} as unknown as MergeData<JobProvider, JobPageData>).concat("\n");
+			default:
+				throw new Error("Bad option");
 		}
 	}
 
@@ -109,7 +113,7 @@ class ScrapeHelper {
 
 	static addToCsv(dir: string, data: string) {
 		const line = data.split("\n");
-		line.splice(0,1);
+		line.splice(0, 1);
 		const newData = line.join("\n");
 		if (newData.length === 0) return;
 		fs.appendFileSync(dir, newData.concat("\n"));

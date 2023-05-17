@@ -13,8 +13,7 @@ class Getter {
 		try {
 			const html = await request.get(url);
 			return new Getter(url, html);
-		}
-		catch {
+		} catch {
 			const html = undefined;
 			return new Getter(url, html);
 		}
@@ -23,7 +22,6 @@ class Getter {
 	get html() {
 		return this.#html;
 	}
-
 }
 
 export default Getter;
