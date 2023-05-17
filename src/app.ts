@@ -7,4 +7,4 @@ async function main() {
 	console.info("Web Scraper Successfully");
 }
 
-main();
+void main();
