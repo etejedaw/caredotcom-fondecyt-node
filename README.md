@@ -4,29 +4,25 @@
 
 Software dedicado a la extracción de millones de datos históricos almacenados en Wayback Machine, sobre los trabajos solicitados y realizados en Estados Unidos durante la pandemia por medio del sitio web care.com.
 
-## Ejecución
+## Instrucciones
 
 1. Clonar el repositorio.
 2. Copiar el archivo `.env.example` y pegarlo en la carpeta raiz con el nombre `.env`.
 3. Añadir el tipo de dato a extraer (offer o job) al lado del texto `DATA_TYPES_EXTRACTION=`. Ejemplo: `DATA_TYPES_EXTRACTION=offer`
-4. Ejecutar el programa de la forma que mejor convenga (Node o Docker). Dependiendo de la ejecución, la ruta del csv con la data extraída será distinto.
+4. El repositorio está desarrollado para ser ejecutado en la versión lts/gallium de NodeJs, por lo que no se asegura una óptima ejecución en otras versiones.
+5. En caso de querer utilizar la versión específica de NodeJs con la que el software fue desarrollado, se recomienda seguir los siguientes pasos:
+   1. Instalar [nvm](https://github.com/nvm-sh/nvm)
+   2. Ejecutar el comando `nvm install`
+   3. Ejecutar el comando `nvm use`
 
-### Node
+### Ejecución
 
 ```
-npm i
+npm ci
 npm run start
 ```
 
 output: `./dist/src/output`
-
-### Docker
-
-```
-docker compose up
-```
-
-output: `./output/`
 
 ## Configuración
 
