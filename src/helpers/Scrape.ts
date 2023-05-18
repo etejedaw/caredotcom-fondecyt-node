@@ -28,8 +28,8 @@ class Scrape {
 						else csv = ArrayExtended.jsonToCsv(dataScraped);
 						const dir = ScrapeHelper.generateDir(dataType, data.information);
 						ScrapeHelper.addToCsv(dir, csv);
-						console.info("CSV Updated");
-					} else console.error(`CANT EXTRACT: ${data.uri}`);
+						console.info(`CSV Updated. Extracted: ${link.uri}`);
+					} else console.error(`CANT EXTRACT: ${link.uri}`);
 				}
 			} else console.error(`NOT FOUND: ${data.uri}`);
 		}
