@@ -1,5 +1,5 @@
 child-care-jobs
-babysitters-jobs
+babysitting-jobs
 nanny-jobs
 tutoring-jobs
 senior-care-jobs

@@ -1,5 +1,5 @@
 child-care
-babysitters
+babysitting
 nannies
 tutors
 senior-care
