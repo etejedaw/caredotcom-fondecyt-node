@@ -6,7 +6,6 @@
   "scripts": {
     "start": "npx tsc && node dist/src/app.js",
     "build": "npx tsc -b",
-    "dev": "nodemon -w './**/*.ts' --exec 'ts-node' src/app.ts",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier --write src"
   },
