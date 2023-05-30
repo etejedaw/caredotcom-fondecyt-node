@@ -4,7 +4,7 @@
   "description": "From automation to home production via the gig economy: a novel gender-based análisis",
   "main": "app.js",
   "scripts": {
-    "start": "npx tsc && node dist/src/app.js",
+    "start": "npm run build && node dist/src/app.js",
     "build": "npx tsc -b",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier --write src"
