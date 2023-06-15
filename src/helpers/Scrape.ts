@@ -7,7 +7,7 @@ class Scrape {
 	static async init(dataType: DataType) {
 		const dataLinks = ScrapeHelper.getLinks(dataType);
 		for (const data of dataLinks) {
-			console.info(`Searching Archive links in: ${data.uri}`);
+			console.info(`\nSearching Archive links in: ${data.uri}`);
 			const list = await ScrapeHelper.getWaybackList(data.uri);
 			ScrapeHelper.createCsv(
 				dataType,
